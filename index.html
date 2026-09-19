@@ -1715,6 +1715,64 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
 }
 </style>
 
+
+<style id="mobile-safari-compositor-v23">
+@media (max-width:980px){
+  .scene,.scene .copy,.scene .art,#phone,#phone-screen,.screen-image{
+    -webkit-backface-visibility:hidden !important;
+    backface-visibility:hidden !important;
+  }
+  .scene .copy,.scene .art,#phone-screen{
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0);
+  }
+  #phone-screen{
+    isolation:isolate !important;
+    contain:paint !important;
+  }
+  .screen-image{
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+    clip-path:none !important;
+    -webkit-clip-path:none !important;
+    filter:none !important;
+    will-change:opacity,transform !important;
+  }
+  .phone-chevron{
+    z-index:120 !important;
+    visibility:visible !important;
+    opacity:1;
+    display:grid !important;
+    transform:translateY(-50%) translateZ(0) !important;
+    -webkit-backface-visibility:hidden !important;
+    backface-visibility:hidden !important;
+  }
+  .phone-chevron[disabled]{opacity:.30 !important;}
+  #stage[data-scene="7"]:not([data-navigating]) .phone-chevron{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+  #stage[data-navigating] .phone-chevron:not([disabled]){
+    opacity:1 !important;
+    visibility:visible !important;
+  }
+  .mobile-phone-viewer-v21 .viewer-phone-frame,
+  .mobile-phone-viewer-v21 .viewer-phone-frame .phone-screen,
+  .mobile-phone-viewer-v21 .screen-image{
+    -webkit-backface-visibility:hidden !important;
+    backface-visibility:hidden !important;
+  }
+  .mobile-phone-viewer-v21 .screen-image{
+    clip-path:none !important;
+    -webkit-clip-path:none !important;
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+    will-change:opacity,transform !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <a class="skip-link" href="#journey-nav">Перейти к навигации по истории</a>
@@ -1972,20 +2030,26 @@ window.HOCHU_CONFIG = {
       let weight=1, y=0, blur=0, rot=0;
       if (!stable && !isReduced) {
         if(incoming) {
-          const start=.235+n*.022;
-          const enter=outCubic((phase-start)/(.94-start));
-          weight=enter; y=(1-enter)*(compact?31:58+n*3); blur=(1-enter)*6; rot=(1-enter)*9;
+          const start=compact ? (.46+n*.010) : (.235+n*.022);
+          const end=compact ? .96 : .94;
+          const enter=outCubic((phase-start)/(end-start));
+          weight=enter; y=(1-enter)*(compact?18:58+n*3); blur=(1-enter)*6; rot=(1-enter)*9;
         } else {
-          const leave=smooth((phase-n*.012)/.48);
-          weight=1-leave; y=-leave*(compact?24:50+n*2); blur=leave*4; rot=-leave*8;
+          const leave=compact ? smooth((phase-n*.006)/.43) : smooth((phase-n*.012)/.48);
+          weight=1-leave; y=-leave*(compact?13:50+n*2); blur=leave*4; rot=-leave*8;
         }
       }
       paintElement(el,weight,y*direction,blur,rot*direction);
     });
     let enter=1,exit=0;
     if(!stable&&!isReduced) {
-      if(incoming) enter=outCubic((phase-.20)/.80);
-      else exit=smooth(phase/.67);
+      if(compact){
+        if(incoming) enter=outCubic((phase-.47)/.53);
+        else exit=smooth(phase/.43);
+      } else {
+        if(incoming) enter=outCubic((phase-.20)/.80);
+        else exit=smooth(phase/.67);
+      }
     }
     s.el.style.setProperty('--enter',String(enter));
     s.el.style.setProperty('--exit',String(exit));
@@ -2000,10 +2064,36 @@ window.HOCHU_CONFIG = {
     }
   }
 
-  function paintScreens(a,b,t) {
+  function paintScreens(a,b,t,direction=1) {
+    const mobileT=smoother(clamp(t,0,1));
     for(const img of imageNodes) {
       const name=img.dataset.screen;
       img.style.maskImage='none'; img.style.webkitMaskImage='none'; img.style.clipPath='none';
+      img.style.transition='none';
+      img.style.backfaceVisibility='hidden'; img.style.webkitBackfaceVisibility='hidden';
+
+      if(compact){
+        img.style.zIndex='0';
+        img.style.opacity='0';
+        img.style.transform='translate3d(0,0,0) scale(1)';
+        if(a.screen===b.screen){
+          if(name===a.screen){img.style.opacity='1';img.style.zIndex='2';}
+          continue;
+        }
+        if(name===a.screen){
+          const oldOpacity=1-mobileT;
+          img.style.opacity=String(oldOpacity);
+          img.style.zIndex='1';
+          img.style.transform=`translate3d(${(-direction*mobileT*5).toFixed(2)}px,${(-mobileT*3).toFixed(2)}px,0) scale(${(1-mobileT*.004).toFixed(4)})`;
+        } else if(name===b.screen){
+          img.style.opacity=String(mobileT);
+          img.style.zIndex='2';
+          img.style.transform=`translate3d(${(direction*(1-mobileT)*7).toFixed(2)}px,${((1-mobileT)*6).toFixed(2)}px,0) scale(${(.996+mobileT*.004).toFixed(4)})`;
+        }
+        continue;
+      }
+
+      img.style.transform='none';
       if(name===a.screen) {img.style.opacity='1';img.style.zIndex='1';}
       else {img.style.opacity='0';img.style.zIndex='0';}
       if(a.screen!==b.screen && name===b.screen) {
@@ -2013,15 +2103,10 @@ window.HOCHU_CONFIG = {
         if(b.reveal==='iris') {
           img.style.clipPath=`circle(${(t*117).toFixed(3)}% at 50% 44%)`;
           img.style.opacity=String(Math.min(1,t*4));
-        } else if(compact) {
-          const remaining=((1-t)*100).toFixed(3);
-          img.style.clipPath=b.reveal==='side'
-            ? `inset(0 ${remaining}% 0 0 round 1px)`
-            : `inset(${remaining}% 0 0 0 round 1px)`;
         } else if(maskSupported) {
           const edge=t*119-9;
-          const direction=b.reveal==='side'?'to right':'to top';
-          const mask=`linear-gradient(${direction},#000 ${edge.toFixed(2)}%,transparent ${(edge+11).toFixed(2)}%)`;
+          const revealDirection=b.reveal==='side'?'to right':'to top';
+          const mask=`linear-gradient(${revealDirection},#000 ${edge.toFixed(2)}%,transparent ${(edge+11).toFixed(2)}%)`;
           img.style.maskImage=mask; img.style.webkitMaskImage=mask;
         } else { img.style.opacity=String(t); }
       }
@@ -2069,7 +2154,7 @@ window.HOCHU_CONFIG = {
     }
     for(const i of lastVisible) if(!visible.has(i)){scenes[i].el.style.visibility='hidden';scenes[i].el.classList.remove('is-visible');}
     lastVisible=visible;
-    if(isReduced)paintScreens(chapters[selected],chapters[selected],0); else paintScreens(a,b,screenBlend);
+    if(isReduced)paintScreens(chapters[selected],chapters[selected],0,direction); else paintScreens(a,b,screenBlend,direction);
     // True total progress is distributed across the labeled navigation segments.
     const navProgress=(direct?selected:position)/(chapters.length-1)*chapters.length;
     navSteps.forEach((el,i)=>el.style.setProperty('--fill',String(clamp(navProgress-i))));
@@ -3070,21 +3155,28 @@ window.HOCHU_CONFIG = {
     if(!animate||!dir||oldImg===newImg||reduced()){
       resetViewerImages(index);return;
     }
-    viewerImages.forEach(img=>{if(img!==oldImg&&img!==newImg){img.style.opacity='0';img.style.zIndex='0';img.style.clipPath='none';}});
-    oldImg.style.opacity='1';oldImg.style.zIndex='1';oldImg.style.clipPath='none';
-    newImg.style.opacity='1';newImg.style.zIndex='2';
-    const mode=revealModes[index];
-    let startClip,endClip='inset(0 0 0 0 round 1px)';
-    if(mode==='iris') startClip='circle(0% at 50% 44%)';
-    else if(mode==='side') startClip=dir>0?'inset(0 100% 0 0 round 1px)':'inset(0 0 0 100% round 1px)';
-    else startClip=dir>0?'inset(100% 0 0 0 round 1px)':'inset(0 0 100% 0 round 1px)';
-    if(mode==='iris') endClip='circle(117% at 50% 44%)';
-    newImg.style.clipPath=startClip;
-    // Force the initial clip into the compositor before starting the reveal.
+
+    viewerImages.forEach(img=>{
+      img.getAnimations().forEach(a=>a.cancel());
+      img.style.clipPath='none';img.style.maskImage='none';img.style.webkitMaskImage='none';
+      img.style.backfaceVisibility='hidden';img.style.webkitBackfaceVisibility='hidden';
+      if(img!==oldImg&&img!==newImg){img.style.opacity='0';img.style.zIndex='0';img.style.transform='translate3d(0,0,0)';}
+    });
+    oldImg.style.opacity='1';oldImg.style.zIndex='1';oldImg.style.transform='translate3d(0,0,0) scale(1)';
+    newImg.style.opacity='0';newImg.style.zIndex='2';newImg.style.transform=`translate3d(${dir*10}px,7px,0) scale(.996)`;
     newImg.getBoundingClientRect();
-    const reveal=newImg.animate([{clipPath:startClip,opacity:.92},{clipPath:endClip,opacity:1}],{duration:820,easing:'cubic-bezier(.22,.78,.19,1)',fill:'forwards'});
-    viewerMotion=[reveal];
-    reveal.finished.catch(()=>{}).then(()=>{
+
+    const easing='cubic-bezier(.22,.78,.19,1)';
+    const oldAnim=oldImg.animate([
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
+      {opacity:.12,transform:`translate3d(${-dir*6}px,-3px,0) scale(.997)`}
+    ],{duration:560,easing,fill:'forwards'});
+    const newAnim=newImg.animate([
+      {opacity:0,transform:`translate3d(${dir*10}px,7px,0) scale(.996)`},
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+    ],{duration:660,easing,fill:'forwards'});
+    viewerMotion=[oldAnim,newAnim];
+    Promise.all([oldAnim.finished.catch(()=>{}),newAnim.finished.catch(()=>{})]).then(()=>{
       if(viewerIndex!==index)return;
       resetViewerImages(index);
     });
@@ -3209,6 +3301,24 @@ window.HOCHU_CONFIG = {
   const anchor=document.getElementById('phone-anchor');
   if(!stage||!anchor)return;
   if(anchor.parentElement!==stage) stage.appendChild(anchor);
+})();
+</script>
+
+
+<script id="mobile-chevron-sticky-fix-v23">
+(function(){
+  const stage=document.getElementById('stage');
+  const prev=document.querySelector('.phone-chevron-prev');
+  const next=document.querySelector('.phone-chevron-next');
+  if(!stage||!prev||!next)return;
+  function mount(){
+    if(innerWidth<=980){
+      if(prev.parentElement!==stage)stage.appendChild(prev);
+      if(next.parentElement!==stage)stage.appendChild(next);
+    }
+  }
+  mount();
+  addEventListener('resize',mount,{passive:true});
 })();
 </script>
 
