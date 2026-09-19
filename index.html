@@ -1443,6 +1443,9 @@ html.mv-open-v30 .header,html.mv-open-v30 .journey-nav,html.mv-open-v30 .phone-c
 <script id="app-loader-v31-js">
 (function(){
   'use strict';
+  // The story is driven by scroll position, so a restored offset would reopen
+  // the page in the middle of it. Every visit starts at the first chapter.
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
   var el=document.getElementById('app-loader');
   if(!el)return;
   var mark=document.getElementById('app-loader-mark');
@@ -2204,6 +2207,7 @@ window.HOCHU_CONFIG = {
   function routeHash() {const i=indexFromHash();if(i>=0)goTo(i,'instant');}
   addEventListener('hashchange',()=>{const i=indexFromHash();if(i>=0)goTo(i);});
   addEventListener('pageshow',requestPaint);
+  if(!location.hash)window.scrollTo({top:0,behavior:'instant'});
   measure(); routeHash(); paint(visual);
   // Small integration API, also used by the supplied regression test.
   window.HochuStory={
