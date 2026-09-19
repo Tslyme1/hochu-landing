@@ -2039,7 +2039,12 @@ window.HOCHU_CONFIG = {
     window.scrollBy({top:e.deltaY*unit,left:e.deltaX*unit,behavior:'instant'});
     requestPaint();
   },{passive:false});
-  addEventListener('touchstart',()=>{cancelSnap();cancelNavigation();},{passive:true});
+  // A tap on the rail starts its navigation on pointerdown, which fires first —
+  // cancelling here would kill the jump the tap just asked for.
+  addEventListener('touchstart',e=>{
+    if(e.target?.closest?.('.journey-nav'))return;
+    cancelSnap();cancelNavigation();
+  },{passive:true});
   // Dragging the native scrollbar should also cancel a pending chapter animation.
   addEventListener('pointerdown',e=>{if(e.clientX>=document.documentElement.clientWidth){cancelSnap();cancelNavigation();}},{passive:true});
   addEventListener('resize',()=>{
@@ -2750,23 +2755,33 @@ window.HOCHU_CONFIG = {
   }
   function target(i){if(i<0)return;desired=i;pending(i,true);placePill(i,false);center(i,false);}
 
-  let navPointerTarget=-1;
+  // The rail both scrolls and selects, so a press only counts as a choice once
+  // the finger lifts without having dragged.
+  let press=null,tapHandledAt=0;
+  const choose=i=>{target(i);window.HochuStory?.goTo?.(i);};
   nav.addEventListener('pointerdown',e=>{
     if(!mq.matches)return;
     const b=e.target.closest('.journey-step');if(!b)return;
     const i=steps.indexOf(b);if(i<0)return;
-    // Prevent the browser from first scrolling/focusing the button itself.
-    e.preventDefault();
-    navPointerTarget=i;target(i);
-    if(window.HochuStory?.goTo)window.HochuStory.goTo(i);
-  },{capture:true,passive:false});
+    press={i,x:e.clientX,y:e.clientY,id:e.pointerId};
+  },{passive:true});
+  nav.addEventListener('pointerup',e=>{
+    if(!mq.matches||!press||press.id!==e.pointerId)return;
+    const i=press.i,moved=Math.hypot(e.clientX-press.x,e.clientY-press.y);
+    press=null;
+    if(moved>10)return;
+    tapHandledAt=performance.now();
+    choose(i);
+  },{passive:true});
+  nav.addEventListener('pointercancel',()=>{press=null;},{passive:true});
   nav.addEventListener('click',e=>{
     if(!mq.matches)return;
     const b=e.target.closest('.journey-step');if(!b)return;
+    // The page's own data-goto handler must not fire a second navigation.
     e.preventDefault();e.stopImmediatePropagation();
+    if(performance.now()-tapHandledAt<700)return;
     const i=steps.indexOf(b);
-    if(i>=0&&i!==navPointerTarget){target(i);window.HochuStory?.goTo?.(i);}
-    navPointerTarget=-1;
+    if(i>=0)choose(i);
   },true);
 
   const obs=new MutationObserver(()=>{
