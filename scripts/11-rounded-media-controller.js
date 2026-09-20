@@ -61,10 +61,19 @@
     const all=mains.concat(enlargedVideos);
     all.forEach(watch);
     const key=screenByScene[Number(stage.dataset.scene)];
-    const main=mains.find(v=>v.dataset.screen===key)||null;
+    const byScene=mains.find(v=>v.dataset.screen===key)||null;
+    // A chapter change composites the incoming screen (z-index 2) while it is
+    // still transparent, but data-scene only flips at the halfway point. Keying
+    // off the composited layer prepares the video before anyone can see it;
+    // seeking and starting playback once it was already half-faded-in is what
+    // produced the flash on phones.
+    const incoming=mains.find(v=>v.style.zIndex==='2')||null;
+    const main=incoming||byScene;
     const screen=open?[...viewer.querySelectorAll('.mv-frame .screen-image')].find(el=>el.style.zIndex==='2'):null;
     const enlarged=screen?.matches(selector)?screen:null;
-    if(main!==previousMain)seek(main);
+    // Rewinding a frame that is on screen shows the seek. Only rewind a hidden one.
+    const hidden=v=>!v||Number(v.style.opacity||'0')<=.02;
+    if(main!==previousMain&&hidden(main))seek(main);
     if(enlarged!==previousViewer) {
       const same=open&&!viewerOpened&&main&&enlarged&&main.dataset.screen===enlarged.dataset.screen;
       seek(enlarged,same?main.currentTime:0);
@@ -74,6 +83,12 @@
     if(inPage&&!document.hidden&&!reduced.matches&&!document.getElementById('download-dialog')?.open) {
       const active=open?enlarged:main;
       if(active)wanted.add(active);
+      // The outgoing screen is still fully opaque underneath during the
+      // cross-fade; pausing it there froze the picture mid-transition.
+      if(!open&&stage.dataset.navigating){
+        const outgoing=mains.find(v=>v.style.zIndex==='1');
+        if(outgoing)wanted.add(outgoing);
+      }
     }
     all.forEach(v=>{if(wanted.has(v))tryPlay(v);else if(!v.paused)v.pause();});
     const dots=viewer?.querySelector('.mv-dots');

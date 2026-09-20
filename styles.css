@@ -72,8 +72,8 @@ em { font-style: normal; }
 .eyebrow { display: flex; align-items: center; gap: 9px; text-transform: uppercase; font-size: 9px; font-weight: 650; line-height: 1.5; letter-spacing: .13em; color: var(--local-muted,var(--muted)); margin-bottom: 22px; }
 .step-tag { border: 1px solid currentColor; display: inline-flex; align-items: center; justify-content: center; height: 23px; min-width: 27px; border-radius: 8px; letter-spacing: 0; font-size: 9px; opacity: .8; }
 .status-dot { display: block; height: 6px; width: 6px; border-radius: 50%; background: #d2f78f; box-shadow: 0 0 0 4px #c4fa7f21; flex-shrink: 0; }
-h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-wrap: normal; }
-.copy h1 {  line-height: .995; letter-spacing: -.065em; }
+h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.14; overflow-wrap: normal; }
+.copy h1 {  line-height: 1.08; letter-spacing: -.065em; }
 
 .title-line { display: block; overflow: clip; overflow-clip-margin: 7px; }
 .line-inner { display: inline-block; will-change: transform,opacity,filter; }
@@ -214,8 +214,8 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
   .copy { left: 5.5%; right: auto; top: 147px; transform: none; width: 89%; text-align: center; }
   .eyebrow { justify-content: center; gap: 7px; font-size: 8px; letter-spacing: .10em; margin-bottom: 12px; }
   .step-tag { height: 18px; min-width: 22px; font-size: 8px; border-radius: 6px; }
-  .copy h1,.copy h2,.scene-search h2,.scene-neuro h2,.scene-chats h2,.scene-create h2,.scene-finale h2 {  line-height: 1.07; letter-spacing: -.048em; max-width: 550px; margin: 0 auto; text-wrap: balance; }
-  .copy h1 {  line-height: 1.01; max-width: 520px; }
+  .copy h1,.copy h2,.scene-search h2,.scene-neuro h2,.scene-chats h2,.scene-create h2,.scene-finale h2 {  line-height: 1.16; letter-spacing: -.048em; max-width: 550px; margin: 0 auto; text-wrap: balance; }
+  .copy h1 {  line-height: 1.10; max-width: 520px; }
   .title-line { display: inline; overflow: visible; }
   .line-inner { display: inline; }
   .description,.final-description { font-size: 13px; margin: 13px auto 0; max-width: 345px; line-height: 1.5; text-wrap: balance; }
@@ -336,88 +336,6 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
 @media (max-height:510px) and (orientation:landscape) { :root { --heading-size:36px; } }
 
 
-/* --- Final scene refresh --- */
-/* Finale uses the same scene state as every other chapter. */
-.phone-anchor{transition:opacity .42s ease,transform .55s cubic-bezier(.22,1,.36,1);}
-.stage[data-scene="7"] .phone-anchor{opacity:0;transform:translate(-50%,-50%) scale(.94);}
-.scene-finale:not(.is-visible){visibility:hidden!important;pointer-events:none!important;}
-.scene-finale:not(.is-visible) .finale-collage{display:none!important;}
-.scene-finale .copy{left:50% !important;right:auto !important;top:50% !important;width:min(760px,calc(100vw - 72px)) !important;transform:translate(-50%,-50%) !important;text-align:center;z-index:20;}
-.scene-finale .copy h2{max-width:900px !important;margin:0 auto !important;}
-.scene-finale .title-line{display:block;}
-.scene-finale .description,.scene-finale .final-description{max-width:720px !important;margin:26px auto 0 !important;font-size:clamp(18px,1.45vw,24px) !important;line-height:1.55 !important;text-wrap:balance;}
-.scene-finale .eyebrow,.scene-finale .story-button,.scene-finale .micro-label{display:none !important;}
-.scene-finale .art{display:block !important;left:50% !important;top:50% !important;width:min(1300px,96vw) !important;height:min(88svh,900px) !important;transform:translate(-50%,-50%) !important;z-index:8 !important;pointer-events:none;}
-.scene-finale .art-enter{position:relative;width:100%;height:100%;will-change:opacity,transform;}
-.finale-collage{position:relative;width:100%;height:100%;}
-.finale-glow{position:absolute;border-radius:50%;opacity:.32;}
-.glow-one{width:300px;height:300px;left:8%;top:16%;background:radial-gradient(circle,#6ad9ff55 0%,#6ad9ff00 70%);}
-.glow-two{width:340px;height:340px;right:6%;top:14%;background:radial-gradient(circle,#c991ff55 0%,#c991ff00 70%);}
-.glow-three{width:360px;height:360px;left:50%;bottom:8%;transform:translateX(-50%);background:radial-gradient(circle,#89e4ff44 0%,#89e4ff00 70%);}
-.finale-card{position:absolute;overflow:hidden;border-radius:34px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(7,20,56,.22), inset 0 1px 0 rgba(255,255,255,.16);}
-.finale-card img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-party{width:clamp(170px,16vw,250px);height:clamp(220px,20vw,310px);left:7%;top:20%;transform:rotate(-12deg);}
-.photo-party img{object-position:center 34%;}
-.photo-map{width:clamp(180px,18vw,270px);height:clamp(220px,18vw,280px);right:9%;top:18%;transform:rotate(10deg);}
-.photo-map img{object-position:center 28%;}
-.photo-search{width:clamp(210px,21vw,320px);height:clamp(145px,14vw,215px);left:10%;bottom:13%;transform:rotate(8deg);}
-.photo-search img{object-position:center 88%;}
-.photo-chat{width:clamp(170px,17vw,260px);height:clamp(220px,20vw,320px);right:7%;bottom:15%;transform:rotate(-9deg);}
-.photo-chat img{object-position:center 46%;}
-.photo-ticket{width:clamp(200px,18vw,280px);height:clamp(145px,12vw,195px);left:50%;top:10%;transform:translateX(-50%) rotate(-2deg);}
-.photo-ticket img{object-position:center 54%;}
-.finale-chip{position:absolute;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;height:58px;border-radius:999px;font-weight:800;font-size:clamp(18px,1.4vw,24px);letter-spacing:-.03em;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 16px 36px rgba(10,27,63,.24);}
-.chip-idea{left:18%;top:11%;background:linear-gradient(135deg,#ffbb6a,#ff8f57);transform:rotate(-6deg);}
-.chip-chat{right:17%;top:43%;background:linear-gradient(135deg,#35c8ff,#0b95f0);transform:rotate(8deg);}
-.chip-go{left:50%;bottom:11%;translate:-50% 0;background:linear-gradient(135deg,#8ce36f,#55c27f);}
-.chip-ticket{right:18%;bottom:9%;background:linear-gradient(135deg,#d59cff,#9f7bff);transform:rotate(-7deg);}
-.finale-illustration{position:absolute;filter:none;}
-.finale-illustration svg{display:block;width:100%;height:100%;}
-.finale-illustration.pin{width:clamp(74px,7vw,118px);height:clamp(74px,7vw,118px);left:21%;bottom:25%;transform:rotate(-10deg);}
-.finale-illustration.spark{width:clamp(74px,8vw,128px);height:clamp(74px,8vw,128px);right:22%;top:25%;}
-.finale-illustration.tickets{width:clamp(105px,10vw,155px);height:clamp(85px,8vw,124px);left:27%;top:53%;transform:rotate(7deg);}
-.finale-illustration.bubble{width:clamp(88px,8vw,128px);height:clamp(88px,8vw,128px);right:25%;bottom:28%;transform:rotate(8deg);}
-@media (max-width: 1100px){
-  .scene-finale .copy{width:min(720px,calc(100vw - 48px)) !important;top:46% !important;}
-  .photo-ticket{top:14%;}
-}
-@media (max-width: 900px){
-  .scene-finale .copy{top:42% !important;width:calc(100vw - 36px) !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:16px !important;max-width:500px !important;}
-  .scene-finale .art{width:100vw !important;height:100svh !important;top:52% !important;}
-  .photo-party{left:-4%;top:19%;}
-  .photo-map{right:-5%;top:18%;}
-  .photo-ticket{top:57%;left:16%;transform:rotate(-10deg);width:150px;height:106px;}
-  .photo-search{left:2%;bottom:7%;width:178px;height:120px;}
-  .photo-chat{right:-2%;bottom:10%;width:172px;height:220px;}
-  .chip-idea{left:9%;top:12%;height:48px;padding:0 18px;font-size:17px;}
-  .chip-chat{right:7%;top:50%;height:46px;padding:0 18px;font-size:17px;}
-  .chip-go{bottom:7%;height:50px;padding:0 20px;font-size:18px;}
-  .chip-ticket{right:6%;bottom:3%;height:46px;padding:0 17px;font-size:17px;}
-  .finale-illustration.pin{left:16%;bottom:27%;width:64px;height:64px;}
-  .finale-illustration.spark{right:16%;top:24%;width:78px;height:78px;}
-  .finale-illustration.tickets{left:18%;top:56%;width:98px;height:78px;}
-  .finale-illustration.bubble{right:18%;bottom:28%;width:78px;height:78px;}
-}
-@media (max-width: 600px){
-  .scene-finale .copy{top:35% !important;}
-  .scene-finale .copy h2{font-size:clamp(42px,13vw,58px) !important;line-height:.98 !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:15px !important;line-height:1.46 !important;max-width:310px !important;margin-top:18px !important;}
-  .scene-finale .art{top:56% !important;}
-  .photo-party{width:120px;height:150px;left:-7%;top:18%;}
-  .photo-map{width:128px;height:148px;right:-9%;top:16%;}
-  .photo-ticket{width:124px;height:88px;top:54%;left:9%;}
-  .photo-search{width:144px;height:96px;left:-7%;bottom:15%;}
-  .photo-chat{width:128px;height:165px;right:-7%;bottom:14%;}
-  .chip-idea{top:10%;left:7%;}
-  .chip-chat{right:4%;top:45%;}
-  .chip-go{bottom:8%;max-width:200px;}
-  .chip-ticket{right:5%;bottom:6%;}
-  .finale-illustration.pin{left:8%;bottom:29%;}
-  .finale-illustration.spark{right:12%;top:21%;}
-  .finale-illustration.tickets{left:9%;top:57%;width:82px;height:66px;}
-  .finale-illustration.bubble{right:10%;bottom:30%;width:64px;height:64px;}
-}
 
 
 
@@ -588,87 +506,199 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
   }
 }
 
-/* --- Final scene refresh --- */
+/* --- Final scene ---------------------------------------------------------
+   One layer owns this scene. The copy holds the middle; every photo, chip and
+   3D prop sits in the margin around it. Nothing is nested inside anything else:
+   the cards carry the only frame, and the props are the only props -- the
+   photographs themselves are plain, with no baked-in frame, chip or object.  */
 /* Finale uses the same scene state as every other chapter. */
 .phone-anchor{transition:opacity .42s ease,transform .55s cubic-bezier(.22,1,.36,1);}
 .stage[data-scene="7"] .phone-anchor{opacity:0;transform:translate(-50%,-50%) scale(.94);}
 .scene-finale:not(.is-visible){visibility:hidden!important;pointer-events:none!important;}
 .scene-finale:not(.is-visible) .finale-collage{display:none!important;}
-.scene-finale .copy{left:50% !important;right:auto !important;top:50% !important;width:min(760px,calc(100vw - 72px)) !important;transform:translate(-50%,-50%) !important;text-align:center;z-index:20;}
-.scene-finale .copy h2{max-width:900px !important;margin:0 auto !important;}
+
+.scene-finale .copy{
+  left:50% !important;right:auto !important;top:50% !important;
+  /* The flanks carry two photo cards plus a chip, so the copy is allowed only
+     the middle of the viewport -- never a fixed width that grows into them. */
+  width:min(660px,calc(100vw - 700px)) !important;
+  transform:translate(-50%,-50%) !important;
+  text-align:center !important;z-index:25 !important;
+}
+.scene-finale .copy h2{
+  max-width:660px !important;margin:0 auto !important;
+  font-size:clamp(56px,5.1vw,84px) !important;line-height:1.14 !important;
+}
 .scene-finale .title-line{display:block;}
-.scene-finale .description,.scene-finale .final-description{max-width:720px !important;margin:26px auto 0 !important;font-size:clamp(18px,1.45vw,24px) !important;line-height:1.55 !important;text-wrap:balance;}
+/* The headline re-breaks on phones: "Хочу —" / "уже повод". */
+.break-narrow{display:none;}
+@media (max-width:900px){
+  .break-wide{display:none;}
+  .break-narrow{display:inline;}
+}
+.scene-finale .description,.scene-finale .final-description{
+  max-width:560px !important;margin:24px auto 0 !important;
+  font-size:clamp(17px,1.25vw,21px) !important;line-height:1.55 !important;text-wrap:balance;
+}
 .scene-finale .eyebrow,.scene-finale .story-button,.scene-finale .micro-label{display:none !important;}
-.scene-finale .art{display:block !important;left:50% !important;top:50% !important;width:min(1300px,96vw) !important;height:min(88svh,900px) !important;transform:translate(-50%,-50%) !important;z-index:8 !important;pointer-events:none;}
+
+.scene-finale .art{
+  display:block !important;left:50% !important;top:50% !important;
+  width:min(1460px,96vw) !important;height:min(88svh,880px) !important;
+  transform:translate(-50%,-50%) !important;z-index:8 !important;pointer-events:none;
+}
 .scene-finale .art-enter{position:relative;width:100%;height:100%;will-change:opacity,transform;}
 .finale-collage{position:relative;width:100%;height:100%;}
-.finale-glow{position:absolute;border-radius:50%;opacity:.32;}
-.glow-one{width:300px;height:300px;left:8%;top:16%;background:radial-gradient(circle,#6ad9ff55 0%,#6ad9ff00 70%);}
-.glow-two{width:340px;height:340px;right:6%;top:14%;background:radial-gradient(circle,#c991ff55 0%,#c991ff00 70%);}
-.glow-three{width:360px;height:360px;left:50%;bottom:8%;transform:translateX(-50%);background:radial-gradient(circle,#89e4ff44 0%,#89e4ff00 70%);}
-.finale-card{position:absolute;overflow:hidden;border-radius:34px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(7,20,56,.22), inset 0 1px 0 rgba(255,255,255,.16);}
+
+/* Script-injected decoration from an earlier revision; the 3D props replaced it. */
+.scene-finale .finale-illustration,
+.scene-finale .finale-orb,
+.scene-finale .finale-map-hero,
+.scene-finale .extra-spark-bottom{display:none !important;}
+
+.finale-glow{position:absolute;border-radius:50%;opacity:.22;pointer-events:none;}
+.glow-one{width:300px;height:300px;left:6%;top:12%;background:radial-gradient(circle,#6ad9ff55 0%,#6ad9ff00 70%);}
+.glow-two{width:330px;height:330px;right:5%;top:10%;background:radial-gradient(circle,#c991ff55 0%,#c991ff00 70%);}
+.glow-three{width:340px;height:340px;left:50%;bottom:4%;transform:translateX(-50%);background:radial-gradient(circle,#89e4ff44 0%,#89e4ff00 70%);}
+
+/* One frame per photograph. */
+.finale-card{
+  position:absolute;overflow:hidden;z-index:10;
+  border-radius:24px;border:3px solid rgba(255,255,255,.82);
+  background:#0d8fd8;
+  box-shadow:0 22px 54px rgba(8,38,82,.26),0 4px 14px rgba(8,38,82,.16);
+}
 .finale-card img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-party{width:clamp(170px,16vw,250px);height:clamp(220px,20vw,310px);left:7%;top:20%;transform:rotate(-12deg);}
-.photo-party img{object-position:center 34%;}
-.photo-map{width:clamp(180px,18vw,270px);height:clamp(220px,18vw,280px);right:9%;top:18%;transform:rotate(10deg);}
-.photo-map img{object-position:center 28%;}
-.photo-search{width:clamp(210px,21vw,320px);height:clamp(145px,14vw,215px);left:10%;bottom:13%;transform:rotate(8deg);}
-.photo-search img{object-position:center 88%;}
-.photo-chat{width:clamp(170px,17vw,260px);height:clamp(220px,20vw,320px);right:7%;bottom:15%;transform:rotate(-9deg);}
-.photo-chat img{object-position:center 46%;}
-.photo-ticket{width:clamp(200px,18vw,280px);height:clamp(145px,12vw,195px);left:50%;top:10%;transform:translateX(-50%) rotate(-2deg);}
-.photo-ticket img{object-position:center 54%;}
-.finale-chip{position:absolute;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;height:58px;border-radius:999px;font-weight:800;font-size:clamp(18px,1.4vw,24px);letter-spacing:-.03em;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 16px 36px rgba(10,27,63,.24);}
-.chip-idea{left:18%;top:11%;background:linear-gradient(135deg,#ffbb6a,#ff8f57);transform:rotate(-6deg);}
-.chip-chat{right:17%;top:43%;background:linear-gradient(135deg,#35c8ff,#0b95f0);transform:rotate(8deg);}
-.chip-go{left:50%;bottom:11%;translate:-50% 0;background:linear-gradient(135deg,#8ce36f,#55c27f);}
-.chip-ticket{right:18%;bottom:9%;background:linear-gradient(135deg,#d59cff,#9f7bff);transform:rotate(-7deg);}
-.finale-illustration{position:absolute;filter:none;}
-.finale-illustration svg{display:block;width:100%;height:100%;}
-.finale-illustration.pin{width:clamp(74px,7vw,118px);height:clamp(74px,7vw,118px);left:21%;bottom:25%;transform:rotate(-10deg);}
-.finale-illustration.spark{width:clamp(74px,8vw,128px);height:clamp(74px,8vw,128px);right:22%;top:25%;}
-.finale-illustration.tickets{width:clamp(105px,10vw,155px);height:clamp(85px,8vw,124px);left:27%;top:53%;transform:rotate(7deg);}
-.finale-illustration.bubble{width:clamp(88px,8vw,128px);height:clamp(88px,8vw,128px);right:25%;bottom:28%;transform:rotate(8deg);}
-@media (max-width: 1100px){
-  .scene-finale .copy{width:min(720px,calc(100vw - 48px)) !important;top:46% !important;}
-  .photo-ticket{top:14%;}
+
+.event-concert{left:2%;top:7%;width:21%;height:27%;transform:rotate(-8deg);}
+.event-cafe{right:2%;top:6%;width:20%;height:28%;transform:rotate(7deg);}
+.event-cafe img{object-position:center 42%;}
+.event-friends{left:3%;bottom:7%;width:21%;height:28%;transform:rotate(6deg);}
+.event-sunset{right:3%;bottom:6%;width:20%;height:27%;transform:rotate(-7deg);}
+
+/* Real text, so nothing is ever cut off mid-word. */
+.finale-chip{
+  position:absolute;z-index:14;display:inline-flex;align-items:center;justify-content:center;
+  height:52px;padding:0 22px;border-radius:999px;white-space:nowrap;
+  background:rgba(255,255,255,.96);color:#2f4ecb;
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 14px 32px rgba(18,52,116,.2);
+  font-size:clamp(15px,1.05vw,18px);font-weight:800;letter-spacing:-.02em;
 }
-@media (max-width: 900px){
-  .scene-finale .copy{top:42% !important;width:calc(100vw - 36px) !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:16px !important;max-width:500px !important;}
-  .scene-finale .art{width:100vw !important;height:100svh !important;top:52% !important;}
-  .photo-party{left:-4%;top:19%;}
-  .photo-map{right:-5%;top:18%;}
-  .photo-ticket{top:57%;left:16%;transform:rotate(-10deg);width:150px;height:106px;}
-  .photo-search{left:2%;bottom:7%;width:178px;height:120px;}
-  .photo-chat{right:-2%;bottom:10%;width:172px;height:220px;}
-  .chip-idea{left:9%;top:12%;height:48px;padding:0 18px;font-size:17px;}
-  .chip-chat{right:7%;top:50%;height:46px;padding:0 18px;font-size:17px;}
-  .chip-go{bottom:7%;height:50px;padding:0 20px;font-size:18px;}
-  .chip-ticket{right:6%;bottom:3%;height:46px;padding:0 17px;font-size:17px;}
-  .finale-illustration.pin{left:16%;bottom:27%;width:64px;height:64px;}
-  .finale-illustration.spark{right:16%;top:24%;width:78px;height:78px;}
-  .finale-illustration.tickets{left:18%;top:56%;width:98px;height:78px;}
-  .finale-illustration.bubble{right:18%;bottom:28%;width:78px;height:78px;}
+/* A chip is as wide as its text, so the two flanking ones hang off a viewport
+   edge and the third is centred -- percentages alone would drift into a card. */
+.chip-friends{left:2%;top:44%;transform:rotate(-3deg);}
+.chip-places{right:2%;top:41%;transform:rotate(4deg);}
+.chip-meet{right:59%;bottom:8%;transform:rotate(-2deg);}
+
+.scene-finale .finale-asset{
+  position:absolute;z-index:12;pointer-events:none;transform-origin:center center;
+  filter:drop-shadow(0 16px 26px rgba(26,53,106,.18)) drop-shadow(0 5px 10px rgba(22,41,84,.12));
 }
-@media (max-width: 600px){
-  .scene-finale .copy{top:35% !important;}
-  .scene-finale .copy h2{font-size:clamp(42px,13vw,58px) !important;line-height:.98 !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:15px !important;line-height:1.46 !important;max-width:310px !important;margin-top:18px !important;}
-  .scene-finale .art{top:56% !important;}
-  .photo-party{width:120px;height:150px;left:-7%;top:18%;}
-  .photo-map{width:128px;height:148px;right:-9%;top:16%;}
-  .photo-ticket{width:124px;height:88px;top:54%;left:9%;}
-  .photo-search{width:144px;height:96px;left:-7%;bottom:15%;}
-  .photo-chat{width:128px;height:165px;right:-7%;bottom:14%;}
-  .chip-idea{top:10%;left:7%;}
-  .chip-chat{right:4%;top:45%;}
-  .chip-go{bottom:8%;max-width:200px;}
-  .chip-ticket{right:5%;bottom:6%;}
-  .finale-illustration.pin{left:8%;bottom:29%;}
-  .finale-illustration.spark{right:12%;top:21%;}
-  .finale-illustration.tickets{left:9%;top:57%;width:82px;height:66px;}
-  .finale-illustration.bubble{right:10%;bottom:30%;width:64px;height:64px;}
+.scene-finale .finale-asset img{display:block;width:100%;height:auto;}
+.scene-finale .asset-music{width:9%;left:26.5%;top:5%;transform:rotate(8deg);}
+.scene-finale .asset-star-right{width:5%;right:27%;top:8%;transform:rotate(8deg);}
+/* The left flank holds a card, a chip and a card; a second star there had
+   nowhere to sit without touching the headline. */
+.scene-finale .asset-star-left{display:none;}
+/* The bottom-left gap between the friends card and the map holds the chip;
+   the heart returns in the stacked layout, where that gap is free. */
+.scene-finale .asset-heart{display:none;}
+.scene-finale .asset-camera{width:8.5%;right:3%;top:50%;transform:rotate(4deg);}
+.scene-finale .asset-map{width:16%;left:50%;bottom:0%;transform:translateX(-50%) rotate(1deg);}
+.scene-finale .asset-calendar{width:9%;right:25%;bottom:6%;transform:rotate(9deg);}
+
+@media (max-width:1300px){
+  .scene-finale .copy h2{font-size:clamp(44px,4.6vw,62px) !important;}
+  .scene-finale .description,.scene-finale .final-description{
+    max-width:100% !important;font-size:16px !important;margin-top:18px !important;
+  }
+  .finale-chip{height:46px;padding:0 18px;font-size:15px;}
+  .scene-finale .asset-map{width:17%;}
+}
+
+/* --- Finale below 1100px: the copy is centred, the imagery rings it --------
+   There is no room for a flank beside the text, so the collage stacks into
+   bands: two cards above the copy, two below, and the map with a prop either
+   side along the floor. Sizes are capped in pixels as well as percentages, so
+   the same rules hold from a 320px phone up to a 1099px tablet.            */
+@media (max-width:1100px){
+  .scene-finale .copy{
+    top:47% !important;
+    width:min(560px,calc(100vw - 36px)) !important;
+    z-index:30 !important;
+  }
+  .scene-finale .copy h2{font-size:clamp(38px,9.4vw,54px) !important;line-height:1.14 !important;}
+  .scene-finale .description,.scene-finale .final-description{
+    max-width:min(360px,calc(100vw - 80px)) !important;margin-top:16px !important;
+    font-size:16px !important;line-height:1.48 !important;
+  }
+  .scene-finale .art{width:100vw !important;height:100svh !important;top:50% !important;}
+
+  .finale-card{border-width:2.5px;border-radius:18px;box-shadow:0 14px 30px rgba(8,38,82,.22);}
+  .event-concert,.event-cafe,.event-friends,.event-sunset{
+    width:min(40%,230px);height:min(14.5%,150px);
+  }
+  /* The tab rail is a fixed height, so the top band clears it in pixels --
+     a percentage put the cards under the rail on shorter screens. */
+  .event-concert{left:3%;top:166px;bottom:auto;transform:rotate(-6deg);}
+  .event-cafe{right:3%;top:166px;bottom:auto;transform:rotate(5deg);}
+  .event-friends{left:3%;top:60%;bottom:auto;transform:rotate(5deg);}
+  .event-sunset{right:3%;top:60%;bottom:auto;transform:rotate(-6deg);}
+
+  /* A chip is as wide as its text; at this width it can only land on the copy. */
+  .finale-chip{display:none !important;}
+
+  .scene-finale .asset-star-left,
+  .scene-finale .asset-star-right,
+  .scene-finale .asset-camera,
+  .scene-finale .asset-music{display:none !important;}
+  .scene-finale .finale-asset{filter:drop-shadow(0 10px 18px rgba(26,53,106,.16));}
+  .scene-finale .asset-map{
+    display:block;width:min(34%,200px);left:50%;bottom:3%;top:auto;
+    transform:translateX(-50%) rotate(0deg);
+  }
+  .scene-finale .asset-heart{
+    display:block;width:min(16%,96px);left:3%;right:auto;top:auto;bottom:6%;
+    transform:rotate(-13deg);
+  }
+  .scene-finale .asset-calendar{
+    width:min(17%,100px);right:3%;left:auto;top:auto;bottom:6%;transform:rotate(9deg);
+  }
+
+  .glow-one{width:190px;height:190px;left:2%;top:10%;}
+  .glow-two{width:200px;height:200px;right:2%;top:9%;}
+  .glow-three{width:210px;height:210px;bottom:2%;}
+}
+
+/* Short screens: tighten the bands rather than let them meet in the middle. */
+@media (max-width:1100px) and (max-height:800px){
+  .scene-finale .copy h2{font-size:clamp(32px,8.4vw,44px) !important;}
+  .scene-finale .description,.scene-finale .final-description{font-size:15px !important;margin-top:12px !important;}
+  .scene-finale .copy{top:50% !important;}
+  .event-concert,.event-cafe{top:158px;height:min(13%,130px);}
+  .event-friends,.event-sunset{top:62%;height:min(13%,130px);}
+  .scene-finale .asset-heart,.scene-finale .asset-calendar{width:min(14%,80px);bottom:5%;}
+  .scene-finale .asset-map{width:min(31%,180px);}
+}
+
+/* Very short screens (SE-sized): the four bands only fit once each one shrinks. */
+@media (max-width:1100px) and (max-height:620px){
+  .scene-finale .copy h2{font-size:clamp(26px,8vw,34px) !important;}
+  .scene-finale .description,.scene-finale .final-description{font-size:13.5px !important;margin-top:10px !important;}
+  .event-concert,.event-cafe{top:150px;height:min(11.5%,90px);}
+  .event-friends,.event-sunset{top:64%;height:min(11.5%,90px);}
+  .scene-finale .asset-heart,.scene-finale .asset-calendar{width:min(12%,62px);}
+  .scene-finale .asset-map{width:min(28%,150px);}
+}
+
+@media (max-width:380px){
+  .scene-finale .copy{width:calc(100vw - 24px) !important;}
+  .scene-finale .copy h2{font-size:clamp(30px,9.6vw,40px) !important;}
+  .scene-finale .description,.scene-finale .final-description{
+    max-width:calc(100vw - 64px) !important;font-size:14px !important;
+  }
+  .event-concert,.event-cafe,.event-friends,.event-sunset{width:43%;}
 }
 
 
@@ -680,114 +710,6 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
 
 
 
-/* Clean final scene: text owns the center, imagery stays at the perimeter. */
-.scene-finale .copy{
-  left:50% !important; right:auto !important; top:50% !important;
-  width:min(650px,calc(100vw - 80px)) !important;
-  transform:translate(-50%,-50%) !important;
-  text-align:center !important; z-index:30 !important;
-}
-.scene-finale .copy h2{max-width:650px !important;margin:0 auto !important;}
-.scene-finale .description,.scene-finale .final-description{
-  max-width:610px !important;margin:26px auto 0 !important;
-  font-size:clamp(18px,1.3vw,22px) !important;line-height:1.52 !important;
-  text-wrap:balance !important;
-}
-.scene-finale .art{
-  display:block !important;left:50% !important;top:50% !important;
-  width:min(1450px,100vw) !important;height:min(88svh,820px) !important;
-  transform:translate(-50%,-50%) !important;z-index:8 !important;
-  pointer-events:none !important;
-}
-.scene-finale .art-enter{width:100%;height:100%;position:relative;}
-.finale-collage{position:relative;width:100%;height:100%;}
-/* Remove clutter from the previous version. */
-.finale-chip,.photo-ticket,.finale-illustration.tickets{display:none !important;}
-.finale-glow{opacity:.20 !important;filter:none !important;}
-.glow-one{left:4% !important;top:14% !important;width:270px !important;height:270px !important;}
-.glow-two{right:4% !important;top:13% !important;width:300px !important;height:300px !important;}
-.glow-three{left:50% !important;bottom:2% !important;width:340px !important;height:340px !important;transform:translateX(-50%) !important;opacity:.1 !important;}
-.finale-card{
-  position:absolute !important;overflow:hidden !important;border-radius:28px !important;
-  border:1px solid rgba(255,255,255,.28) !important;
-  background:rgba(255,255,255,.08) !important;
-  box-shadow:0 18px 42px rgba(5,35,72,.18) !important;
-}
-.finale-card img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-party{
-  width:clamp(170px,15vw,240px) !important;height:clamp(205px,18vw,285px) !important;
-  left:5% !important;top:18% !important;transform:rotate(-8deg) !important;
-}
-.photo-map{
-  width:clamp(175px,15vw,245px) !important;height:clamp(205px,17vw,270px) !important;
-  right:5% !important;top:18% !important;transform:rotate(8deg) !important;
-}
-.photo-search{
-  width:clamp(205px,18vw,290px) !important;height:clamp(135px,12vw,190px) !important;
-  left:8% !important;bottom:13% !important;transform:rotate(6deg) !important;
-}
-.photo-chat{
-  width:clamp(160px,14vw,220px) !important;height:clamp(205px,18vw,280px) !important;
-  right:7% !important;bottom:12% !important;transform:rotate(-7deg) !important;
-}
-/* Only three lightweight accents remain. */
-.finale-illustration.pin{
-  display:block !important;width:82px !important;height:82px !important;
-  left:23% !important;bottom:24% !important;transform:rotate(-10deg) !important;
-}
-.finale-illustration.spark{
-  display:block !important;width:92px !important;height:92px !important;
-  right:23% !important;top:24% !important;
-}
-.finale-illustration.bubble{
-  display:block !important;width:76px !important;height:76px !important;
-  right:24% !important;bottom:25% !important;transform:rotate(7deg) !important;
-}
-/* Keep a protected empty area around the copy. */
-.scene-finale .copy::before{
-  content:"";position:absolute;inset:-54px -70px;z-index:-1;border-radius:54px;
-  background:radial-gradient(ellipse at center,rgba(7,159,238,.94) 0%,rgba(7,159,238,.82) 48%,rgba(7,159,238,0) 76%);
-}
-@media (max-width:1150px){
-  .scene-finale .copy{width:min(600px,calc(100vw - 72px)) !important;}
-  .photo-party{left:1% !important;}
-  .photo-map{right:1% !important;}
-  .photo-search{left:2% !important;}
-  .photo-chat{right:2% !important;}
-  .finale-illustration.pin{left:18% !important;}
-  .finale-illustration.spark{right:18% !important;}
-  .finale-illustration.bubble{right:19% !important;}
-}
-@media (max-width:900px){
-  .scene-finale .copy{top:43% !important;width:calc(100vw - 44px) !important;}
-  .scene-finale .copy h2{max-width:560px !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:16px !important;max-width:480px !important;}
-  .scene-finale .art{width:100vw !important;height:100svh !important;top:51% !important;}
-  .photo-party{width:150px !important;height:188px !important;left:-3% !important;top:18% !important;}
-  .photo-map{width:152px !important;height:180px !important;right:-4% !important;top:18% !important;}
-  .photo-search{width:180px !important;height:118px !important;left:-3% !important;bottom:10% !important;}
-  .photo-chat{width:145px !important;height:188px !important;right:-3% !important;bottom:10% !important;}
-  .finale-illustration.pin{left:15% !important;bottom:28% !important;width:60px !important;height:60px !important;}
-  .finale-illustration.spark{right:15% !important;top:26% !important;width:66px !important;height:66px !important;}
-  .finale-illustration.bubble{right:16% !important;bottom:29% !important;width:58px !important;height:58px !important;}
-  .scene-finale .copy::before{inset:-42px -28px;}
-}
-@media (max-width:600px){
-  .scene-finale .copy{top:36% !important;width:calc(100vw - 32px) !important;}
-  .scene-finale .copy h2{font-size:clamp(42px,13vw,57px) !important;line-height:.98 !important;}
-  .scene-finale .description,.scene-finale .final-description{
-    max-width:315px !important;font-size:14.5px !important;line-height:1.45 !important;margin-top:17px !important;
-  }
-  .scene-finale .art{top:54% !important;}
-  .photo-party{width:105px !important;height:132px !important;left:-9% !important;top:21% !important;}
-  .photo-map{width:108px !important;height:128px !important;right:-9% !important;top:20% !important;}
-  .photo-search{width:128px !important;height:84px !important;left:-8% !important;bottom:14% !important;}
-  .photo-chat{width:104px !important;height:136px !important;right:-8% !important;bottom:14% !important;}
-  .finale-illustration.pin{left:7% !important;bottom:29% !important;width:47px !important;height:47px !important;}
-  .finale-illustration.spark{right:7% !important;top:25% !important;width:52px !important;height:52px !important;}
-  .finale-illustration.bubble{right:7% !important;bottom:29% !important;width:46px !important;height:46px !important;}
-  .scene-finale .copy::before{inset:-36px -16px;}
-}
 
 
 
@@ -1150,234 +1072,9 @@ h1,h2 { font-weight: 800; letter-spacing: -.057em; line-height: 1.065; overflow-
 
 
 
-@media (max-width: 767px){
-  .scene-finale .copy{
-    top:43% !important;
-    width:min(320px, calc(100vw - 56px)) !important;
-    z-index:35 !important;
-  }
-  .scene-finale .copy h2{
-    max-width:300px !important;
-    font-size:clamp(42px,12.8vw,58px) !important;
-    line-height:.96 !important;
-  }
-  .scene-finale .description,
-  .scene-finale .final-description{
-    width:min(272px, calc(100vw - 118px)) !important;
-    max-width:272px !important;
-    margin:16px auto 0 !important;
-    font-size:14px !important;
-    line-height:1.45 !important;
-    text-wrap:pretty !important;
-  }
-  .scene-finale .copy::before{
-    inset:-28px -16px !important;
-  }
-  .scene-finale .art{
-    top:55% !important;
-    width:100vw !important;
-    height:100svh !important;
-  }
-  .scene-finale .finale-collage,
-  .scene-finale .art-enter{
-    overflow:visible !important;
-  }
-  .scene-finale .finale-card{
-    border-radius:24px !important;
-  }
-  .scene-finale .finale-chip{
-    height:38px !important;
-    padding:0 14px !important;
-    font-size:12px !important;
-    box-shadow:0 10px 26px rgba(31,67,133,.18) !important;
-  }
-  .scene-finale .event-concert{
-    width:178px !important;
-    height:128px !important;
-    left:-5% !important;
-    top:25% !important;
-    transform:rotate(-9deg) !important;
-  }
-  .scene-finale .event-places{
-    width:170px !important;
-    height:124px !important;
-    right:-6% !important;
-    top:24% !important;
-    transform:rotate(8deg) !important;
-  }
-  .scene-finale .event-friends{
-    width:188px !important;
-    height:136px !important;
-    left:-6% !important;
-    bottom:10% !important;
-    transform:rotate(6deg) !important;
-  }
-  .scene-finale .event-meet{
-    width:180px !important;
-    height:130px !important;
-    right:-6% !important;
-    bottom:9% !important;
-    transform:rotate(-6deg) !important;
-  }
-  .scene-finale .chip-places{
-    right:-1% !important;
-    top:32% !important;
-    transform:rotate(-8deg) !important;
-  }
-  .scene-finale .chip-friends{
-    left:-1% !important;
-    top:73% !important;
-    transform:rotate(-2deg) !important;
-  }
-  .scene-finale .chip-meet{
-    right:7% !important;
-    bottom:10% !important;
-    transform:rotate(-8deg) !important;
-  }
-  .scene-finale .finale-illustration.note,
-  .scene-finale .finale-illustration.heart,
-  .scene-finale .finale-illustration.camera,
-  .scene-finale .finale-illustration.calendar,
-  .scene-finale .finale-orb,
-  .scene-finale .finale-map-hero,
-  .scene-finale .extra-spark-bottom{
-    display:none !important;
-  }
-  .scene-finale .finale-illustration.spark{
-    display:block !important;
-    width:52px !important;
-    height:52px !important;
-    right:11% !important;
-    top:41% !important;
-    transform:rotate(8deg) !important;
-  }
-}
-
-@media (max-width: 430px){
-  .scene-finale .copy{
-    top:42% !important;
-    width:calc(100vw - 40px) !important;
-  }
-  .scene-finale .copy h2{
-    max-width:286px !important;
-  }
-  .scene-finale .description,
-  .scene-finale .final-description{
-    width:min(264px, calc(100vw - 112px)) !important;
-    max-width:264px !important;
-  }
-}
-
-@media (max-width: 380px){
-  .scene-finale .copy{
-    top:40.5% !important;
-    width:calc(100vw - 30px) !important;
-  }
-  .scene-finale .copy h2{
-    font-size:clamp(38px,12.6vw,50px) !important;
-    max-width:260px !important;
-  }
-  .scene-finale .description,
-  .scene-finale .final-description{
-    width:min(240px, calc(100vw - 100px)) !important;
-    max-width:240px !important;
-    font-size:13px !important;
-    line-height:1.42 !important;
-  }
-  .scene-finale .event-concert{
-    width:156px !important;
-    height:114px !important;
-    left:-8% !important;
-    top:25% !important;
-  }
-  .scene-finale .event-places{
-    width:150px !important;
-    height:110px !important;
-    right:-8% !important;
-    top:24% !important;
-  }
-  .scene-finale .event-friends{
-    width:166px !important;
-    height:120px !important;
-    left:-8% !important;
-    bottom:11% !important;
-  }
-  .scene-finale .event-meet{
-    width:160px !important;
-    height:116px !important;
-    right:-7% !important;
-    bottom:10% !important;
-  }
-  .scene-finale .finale-chip{
-    height:34px !important;
-    padding:0 12px !important;
-    font-size:11px !important;
-  }
-  .scene-finale .chip-places{top:31.5% !important;}
-  .scene-finale .chip-friends{top:72% !important;}
-  .scene-finale .chip-meet{right:5% !important;bottom:10% !important;}
-  .scene-finale .finale-illustration.spark{
-    width:46px !important;
-    height:46px !important;
-    right:8% !important;
-    top:40% !important;
-  }
-}
 
 
 
-.scene-finale .finale-illustration, .scene-finale .finale-orb, .scene-finale .finale-map-hero, .scene-finale .extra-spark-bottom{display:none !important;}
-.scene-finale .finale-asset{
-  position:absolute;
-  z-index:12;
-  pointer-events:none;
-  filter:drop-shadow(0 18px 30px rgba(26,53,106,.18)) drop-shadow(0 6px 12px rgba(22,41,84,.12));
-  transform-origin:center center;
-}
-.scene-finale .finale-asset img{display:block;width:100%;height:auto;}
-.scene-finale .asset-star-left{width:clamp(88px,9vw,148px);left:2.5%;top:30%;transform:rotate(-14deg);}
-.scene-finale .asset-music{width:clamp(94px,9vw,156px);left:26.5%;top:20%;transform:rotate(8deg);}
-.scene-finale .asset-star-right{width:clamp(54px,5vw,92px);right:27%;top:26%;transform:rotate(8deg);}
-.scene-finale .asset-camera{width:clamp(110px,10vw,176px);right:4.5%;top:39%;transform:rotate(4deg);}
-.scene-finale .asset-heart{width:clamp(92px,8vw,138px);left:4%;bottom:7%;transform:rotate(-15deg);}
-.scene-finale .asset-map{width:clamp(220px,22vw,360px);left:50%;bottom:3%;transform:translateX(-50%) rotate(1deg);}
-.scene-finale .asset-calendar{width:clamp(118px,10vw,184px);right:4%;bottom:4%;transform:rotate(9deg);}
-.scene-finale .asset-map::after{content:"";position:absolute;left:50%;bottom:-6%;width:62%;height:26%;transform:translateX(-50%);filter:blur(16px);background:rgba(52,112,255,.18);border-radius:50%;z-index:-1;}
-
-@media (max-width: 1200px){
-  .scene-finale .asset-star-left{left:1.2%;top:32%;}
-  .scene-finale .asset-camera{right:2.5%;top:41%;}
-  .scene-finale .asset-map{width:clamp(200px,24vw,320px);bottom:5%;}
-}
-
-@media (max-width: 767px){
-  .scene-finale .finale-asset{filter:drop-shadow(0 12px 20px rgba(26,53,106,.14));}
-  .scene-finale .asset-star-left{width:66px !important;left:-1% !important;top:21% !important;transform:rotate(-14deg) !important;}
-  .scene-finale .asset-music{width:76px !important;left:32% !important;top:22% !important;transform:rotate(10deg) !important;}
-  .scene-finale .asset-star-right{width:40px !important;right:12% !important;top:40% !important;}
-  .scene-finale .asset-camera{width:70px !important;right:1% !important;top:44% !important;}
-  .scene-finale .asset-heart{width:66px !important;left:-2% !important;bottom:13% !important;transform:rotate(-14deg) !important;}
-  .scene-finale .asset-map{width:170px !important;left:50% !important;bottom:10% !important;transform:translateX(-50%) rotate(0deg) !important;}
-  .scene-finale .asset-calendar{width:88px !important;right:1% !important;bottom:9% !important;transform:rotate(8deg) !important;}
-}
-
-@media (max-width: 430px){
-  .scene-finale .asset-star-left{width:60px !important;top:22% !important;left:-3% !important;}
-  .scene-finale .asset-music{width:70px !important;left:34% !important;top:23% !important;}
-  .scene-finale .asset-star-right{right:11% !important;top:39% !important;}
-  .scene-finale .asset-camera{width:64px !important;right:0% !important;top:43.5% !important;}
-  .scene-finale .asset-map{width:160px !important;bottom:11% !important;}
-  .scene-finale .asset-calendar{width:82px !important;right:0% !important;bottom:9% !important;}
-}
-
-@media (max-width: 380px){
-  .scene-finale .asset-star-left{width:56px !important;top:23% !important;}
-  .scene-finale .asset-music{width:64px !important;left:33% !important;top:24% !important;}
-  .scene-finale .asset-camera{width:58px !important;top:43% !important;}
-  .scene-finale .asset-heart{width:58px !important;bottom:14% !important;}
-  .scene-finale .asset-map{width:148px !important;bottom:12% !important;}
-  .scene-finale .asset-calendar{width:76px !important;bottom:10% !important;}
-}
 
 
 
@@ -1649,65 +1346,6 @@ html.mv-open-v30 .header,html.mv-open-v30 .journey-nav,html.mv-open-v30 .phone-c
 .journey-step[data-goto="2"].is-active .menu-icon [data-neuro-fill="1"],
 .journey-step[data-goto="2"].is-target .menu-icon [data-neuro-fill="1"]{fill:url(#navNeuroGradient) !important;}
 .journey-step[data-goto="2"]:not(.is-active):not(.is-target) .menu-icon [data-neuro-fill="1"]{fill:currentColor !important;}
-/* Finale: event photography, larger cards and denser glossy objects. */
-.scene-finale .copy{top:49% !important;width:min(690px,calc(100vw - 72px)) !important;}
-.scene-finale .copy h2{font-size:clamp(58px,5.35vw,88px) !important;}
-.scene-finale .description,.scene-finale .final-description{font-size:clamp(17px,1.25vw,21px) !important;max-width:660px !important;margin-top:22px !important;}
-.scene-finale .art{width:min(1500px,98vw) !important;height:min(90svh,940px) !important;}
-.finale-card{border-radius:28px !important;border:2px solid rgba(255,255,255,.62) !important;box-shadow:0 24px 70px rgba(14,47,91,.24),0 4px 16px rgba(0,50,100,.18) !important;}
-.finale-card::after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.17),transparent 36%,transparent 72%,rgba(80,113,255,.10));pointer-events:none;}
-.event-concert{width:clamp(230px,20vw,330px);height:clamp(170px,15vw,245px);left:4%;top:14%;transform:rotate(-9deg);}
-.event-friends{width:clamp(245px,21vw,350px);height:clamp(175px,15vw,250px);left:6%;bottom:11%;transform:rotate(7deg);}
-.event-cafe{width:clamp(235px,20vw,335px);height:clamp(170px,15vw,245px);right:4%;top:15%;transform:rotate(8deg);}
-.event-sunset{width:clamp(250px,21vw,360px);height:clamp(175px,15vw,255px);right:5%;bottom:10%;transform:rotate(-7deg);}
-.finale-chip{height:54px;padding:0 22px;border-radius:999px;background:rgba(255,255,255,.95);color:#3451D1;border:1px solid rgba(255,255,255,.9);box-shadow:0 14px 34px rgba(31,67,133,.22);font-size:clamp(15px,1.08vw,19px);font-weight:800;}
-.chip-friends{left:3%;top:50%;transform:rotate(-4deg);}
-.chip-places{right:3%;top:48%;transform:rotate(5deg);}
-.chip-meet{right:20%;bottom:5%;transform:rotate(-3deg);}
-.finale-illustration{position:absolute;filter:drop-shadow(0 18px 20px rgba(38,52,119,.20));}
-.finale-illustration svg{display:block;width:100%;height:100%;overflow:visible;}
-.finale-illustration.pin{width:118px;height:118px;left:25%;bottom:8%;transform:rotate(-8deg);}
-.finale-illustration.spark{width:112px;height:112px;right:25%;top:12%;transform:rotate(8deg);}
-.finale-illustration.heart{width:104px;height:104px;left:17%;top:40%;transform:rotate(-8deg);}
-.finale-illustration.camera{width:132px;height:112px;right:13%;top:42%;transform:rotate(8deg);}
-.finale-illustration.calendar{width:118px;height:108px;right:10%;bottom:25%;transform:rotate(7deg);}
-.finale-illustration.note{width:94px;height:94px;left:12%;top:8%;transform:rotate(10deg);}
-.finale-illustration.bubble{width:96px;height:96px;left:28%;top:16%;transform:rotate(-8deg);}
-.finale-illustration.ticket{width:130px;height:104px;right:28%;bottom:13%;transform:rotate(9deg);}
-@media (max-width:980px){
-  .journey-nav{justify-content:flex-start !important;}
-  .journey-step{padding-left:16px !important;padding-right:16px !important;}
-  .scene-finale .copy{top:38% !important;}
-  .scene-finale .art{top:56% !important;}
-  .event-concert{width:150px;height:112px;left:-5%;top:18%;}
-  .event-friends{width:158px;height:116px;left:-5%;bottom:14%;}
-  .event-cafe{width:150px;height:112px;right:-5%;top:18%;}
-  .event-sunset{width:158px;height:116px;right:-5%;bottom:14%;}
-  .finale-chip{height:42px;padding:0 15px;font-size:13px;}
-  .chip-friends{left:2%;top:48%;}.chip-places{right:2%;top:48%;}.chip-meet{right:16%;bottom:7%;}
-  .finale-illustration.pin{width:68px;height:68px;left:24%;bottom:10%;}
-  .finale-illustration.spark{width:70px;height:70px;right:22%;top:20%;}
-  .finale-illustration.heart{width:66px;height:66px;left:18%;top:42%;}
-  .finale-illustration.camera{width:82px;height:70px;right:16%;top:42%;}
-  .finale-illustration.calendar{width:72px;height:66px;right:10%;bottom:28%;}
-  .finale-illustration.note{width:62px;height:62px;left:12%;top:15%;}
-  .finale-illustration.bubble{width:62px;height:62px;left:27%;top:22%;}
-  .finale-illustration.ticket{width:82px;height:66px;right:27%;bottom:14%;}
-}
-@media (max-width:600px){
-  .scene-finale .copy{top:31% !important;}
-  .scene-finale .copy h2{font-size:clamp(40px,12vw,54px) !important;}
-  .scene-finale .description,.scene-finale .final-description{font-size:14px !important;max-width:300px !important;}
-  .scene-finale .art{top:59% !important;}
-  .event-concert{width:125px;height:92px;left:-11%;top:22%;}
-  .event-friends{width:132px;height:96px;left:-9%;bottom:17%;}
-  .event-cafe{width:125px;height:92px;right:-11%;top:22%;}
-  .event-sunset{width:132px;height:96px;right:-9%;bottom:17%;}
-  .chip-friends{left:-2%;top:53%;}.chip-places{right:-2%;top:53%;}.chip-meet{right:7%;bottom:10%;}
-  .finale-illustration.heart{left:15%;top:45%;}.finale-illustration.camera{right:13%;top:45%;}
-  .finale-illustration.calendar{right:4%;bottom:30%;}.finale-illustration.note{left:6%;top:18%;}
-  .finale-illustration.bubble{left:26%;top:25%;}.finale-illustration.ticket{right:24%;bottom:18%;}
-}
 
 
 
@@ -1754,65 +1392,6 @@ html.mv-open-v30 .header,html.mv-open-v30 .journey-nav,html.mv-open-v30 .phone-c
 
 
 
-.scene-finale .art{width:min(1450px,98vw) !important;height:min(90svh,920px) !important;top:52% !important;}
-.scene-finale .copy{top:44% !important;width:min(760px,calc(100vw - 72px)) !important;z-index:25 !important;}
-.scene-finale .copy h2{font-size:clamp(68px,5.8vw,116px) !important;line-height:.94 !important;}
-.scene-finale .description,.scene-finale .final-description{font-size:clamp(18px,1.45vw,23px) !important;max-width:640px !important;line-height:1.5 !important;}
-.scene-finale .finale-collage{overflow:visible;}
-.scene-finale .finale-glow{opacity:.16 !important;filter:blur(6px) !important;}
-.scene-finale .finale-card{border-radius:28px !important;border:2px solid rgba(255,255,255,.58) !important;box-shadow:0 24px 70px rgba(15,48,92,.22),0 6px 18px rgba(15,48,92,.14) !important;backdrop-filter:none !important;}
-.scene-finale .event-concert{width:clamp(250px,21vw,362px) !important;height:clamp(176px,15.5vw,258px) !important;left:5% !important;top:15% !important;transform:rotate(-9deg) !important;}
-.scene-finale .event-places{width:clamp(260px,22vw,380px) !important;height:clamp(184px,16vw,268px) !important;right:6% !important;top:14% !important;transform:rotate(-6deg) !important;}
-.scene-finale .event-friends{width:clamp(270px,23vw,392px) !important;height:clamp(186px,16vw,270px) !important;left:6% !important;bottom:12% !important;transform:rotate(7deg) !important;}
-.scene-finale .event-meet{width:clamp(270px,23vw,390px) !important;height:clamp(186px,16vw,270px) !important;right:9% !important;bottom:11% !important;transform:rotate(7deg) !important;}
-.scene-finale .finale-chip{height:56px !important;padding:0 24px !important;border-radius:999px !important;background:rgba(255,255,255,.94) !important;color:#3550cf !important;border:1px solid rgba(255,255,255,.9) !important;box-shadow:0 14px 34px rgba(31,67,133,.18) !important;font-size:clamp(15px,1.08vw,19px) !important;font-weight:800 !important;letter-spacing:-.025em !important;}
-.scene-finale .chip-friends{left:0.8% !important;top:49% !important;transform:rotate(0deg) !important;}
-.scene-finale .chip-places{right:0.4% !important;top:34% !important;transform:rotate(-10deg) !important;}
-.scene-finale .chip-meet{right:19% !important;bottom:15% !important;transform:rotate(-10deg) !important;}
-.scene-finale .finale-illustration{filter:drop-shadow(0 18px 24px rgba(37,52,118,.18)) !important;}
-.scene-finale .finale-illustration.pin,
-.scene-finale .finale-illustration.bubble,
-.scene-finale .finale-illustration.ticket{display:none !important;}
-.scene-finale .finale-illustration.note{width:96px !important;height:96px !important;left:26% !important;top:18% !important;transform:rotate(9deg) !important;}
-.scene-finale .finale-illustration.spark{width:72px !important;height:72px !important;right:25% !important;top:24% !important;transform:rotate(8deg) !important;}
-.scene-finale .finale-illustration.heart{width:96px !important;height:96px !important;left:4.5% !important;bottom:6.8% !important;top:auto !important;transform:rotate(-10deg) !important;filter:drop-shadow(0 18px 24px rgba(255,81,133,.22)) !important;}
-.scene-finale .finale-illustration.camera{width:114px !important;height:98px !important;right:4% !important;top:38% !important;transform:rotate(0deg) !important;}
-.scene-finale .finale-illustration.calendar{width:122px !important;height:112px !important;right:1.5% !important;bottom:3.8% !important;transform:rotate(8deg) !important;}
-.scene-finale .finale-map-hero{position:absolute;left:50%;bottom:3%;width:min(380px,28vw);transform:translateX(-50%);z-index:13;pointer-events:none;filter:drop-shadow(0 28px 30px rgba(14,48,104,.17));}
-.scene-finale .finale-map-hero .map-svg{display:block;width:100%;height:auto;}
-.scene-finale .finale-map-hero .map-pin-3d{position:absolute;right:23%;top:0;width:34%;transform:translateY(-8%);}
-.scene-finale .finale-map-hero .map-pin-3d svg{display:block;width:100%;height:auto;overflow:visible;}
-.scene-finale .extra-spark-bottom{position:absolute;width:68px;height:68px;left:56%;bottom:6%;z-index:12;transform:translateX(80px) rotate(14deg);filter:drop-shadow(0 18px 20px rgba(38,52,119,.16));}
-.scene-finale .extra-spark-bottom svg{display:block;width:100%;height:100%;}
-.scene-finale .finale-orb{position:absolute;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(145,242,255,.95),rgba(36,137,240,.82) 58%,rgba(17,76,195,.96));box-shadow:0 16px 26px rgba(35,111,219,.18);z-index:11;}
-.scene-finale .orb-left{width:30px;height:30px;left:1.8%;top:31%;}
-.scene-finale .orb-mid{width:18px;height:18px;left:46.5%;bottom:10.5%;}
-.scene-finale .orb-right{width:54px;height:54px;right:1.4%;bottom:21.5%;background:radial-gradient(circle at 32% 28%,rgba(250,194,255,.94),rgba(182,117,255,.84) 58%,rgba(135,89,255,.95));box-shadow:0 16px 26px rgba(104,74,220,.18);}
-@media (max-width:1200px){
-  .scene-finale .copy{top:42.5% !important;width:min(680px,calc(100vw - 50px)) !important;}
-  .scene-finale .copy h2{font-size:clamp(58px,6.5vw,88px) !important;}
-  .scene-finale .event-concert{left:0% !important;top:18% !important;width:190px !important;height:138px !important;}
-  .scene-finale .event-friends{left:1% !important;bottom:15% !important;width:206px !important;height:145px !important;}
-  .scene-finale .event-places{right:2% !important;top:17% !important;width:214px !important;height:150px !important;}
-  .scene-finale .event-meet{right:5% !important;bottom:14% !important;width:212px !important;height:150px !important;}
-  .scene-finale .chip-friends{left:1% !important;top:48.5% !important;}
-  .scene-finale .chip-places{right:1% !important;top:39% !important;}
-  .scene-finale .chip-meet{right:12.5% !important;bottom:17% !important;}
-  .scene-finale .finale-illustration.note{left:29% !important;top:20% !important;width:76px !important;height:76px !important;}
-  .scene-finale .finale-illustration.spark{right:24% !important;top:27% !important;width:58px !important;height:58px !important;}
-  .scene-finale .finale-illustration.camera{right:2% !important;top:40.5% !important;width:90px !important;height:78px !important;}
-  .scene-finale .finale-illustration.calendar{right:0% !important;bottom:6% !important;width:92px !important;height:86px !important;}
-  .scene-finale .finale-illustration.heart{left:1% !important;bottom:10% !important;width:74px !important;height:74px !important;}
-  .scene-finale .finale-map-hero{width:250px !important;bottom:5% !important;}
-  .scene-finale .extra-spark-bottom{width:54px !important;height:54px !important;left:54% !important;bottom:8% !important;transform:translateX(56px) rotate(14deg) !important;}
-  .scene-finale .orb-left{width:22px !important;height:22px !important;left:.8% !important;top:35% !important;}
-  .scene-finale .orb-mid{width:14px !important;height:14px !important;left:46% !important;bottom:11% !important;}
-  .scene-finale .orb-right{width:34px !important;height:34px !important;right:0% !important;bottom:22% !important;}
-}
-@media (max-width:980px){
-  .scene-finale .finale-map-hero,.scene-finale .extra-spark-bottom,.scene-finale .finale-orb{display:none !important;}
-  .scene-finale .finale-illustration.ticket,.scene-finale .finale-illustration.bubble,.scene-finale .finale-illustration.pin{display:none !important;}
-}
 
 
 

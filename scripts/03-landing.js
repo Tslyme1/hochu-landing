@@ -351,14 +351,24 @@
       const ratio=innerHeight<=650?.56:(innerWidth<=430?.64:.66);
       const maxByWidth=(innerWidth*.80)/.466;
       const desired=Math.min(height*ratio,maxByWidth);
-      const available=Math.max(230,height-bottom-(navBottom+maxCopyHeight+18));
+      // Breathing room between the last line of copy and the top of the device.
+      const gap=innerHeight<=650?26:38;
+      const available=Math.max(230,height-bottom-(navBottom+maxCopyHeight+gap));
       const phoneHeight=Math.max(230,Math.min(desired,available));
       root.style.setProperty('--phone-h',Math.floor(phoneHeight)+'px');
       const phoneTop=height-bottom-phoneHeight;
-      const copyCenter=navBottom+(phoneTop-navBottom)/2;
-      root.style.setProperty('--mobile-copy-y',Math.round(copyCenter)+'px');
+      // Every chapter's copy sits the same distance above the device. Centering
+      // one shared axis in the band instead left the taller chapters crowding
+      // the phone while the shorter ones floated, which read as uneven.
+      root.style.removeProperty('--mobile-copy-y');
+      phoneScenes.forEach(s=>{
+        const own=s.copy.offsetHeight;
+        const center=Math.max(navBottom+own/2,phoneTop-gap-own/2);
+        s.copy.style.setProperty('--mobile-copy-y',Math.round(center)+'px');
+      });
     } else {
       root.style.removeProperty('--mobile-copy-y');
+      scenes.forEach(s=>s.copy.style.removeProperty('--mobile-copy-y'));
     }
     step=Math.round(height*clamp(Number(config.chapterLength)||1.25,.8,2));
     maxScroll=step*(chapters.length-1);
