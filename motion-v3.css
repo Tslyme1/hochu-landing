@@ -76,7 +76,7 @@ html .app-loader{background-color:transparent!important;background-image:linear-
  #stage #phone-anchor{left:var(--motion-phone-x,50%)!important;top:var(--motion-phone-y)!important;width:var(--phone-w)!important;height:var(--phone-h)!important;transform:translate(-50%,-50%)!important;perspective:none!important;touch-action:pan-y pinch-zoom;}
  #stage #phone{transform:none!important;transition:none!important;animation:none!important;}
  #stage .scene-finale .copy{top:calc(var(--viewport-stable,100svh)*.49)!important;}
- #stage .scene-finale .art{height:var(--viewport-stable,100svh)*.5)!important;top:calc(var(--viewport-stable,100svh)*.5)!important;}
+ #stage .scene-finale .art{height:var(--viewport-stable,100svh)!important;top:calc(var(--viewport-stable,100svh)*.5)!important;}
  #stage .scene-finale .copy h2{font-size:clamp(32px,9.4vw,46px)!important;}
 }
 @media(max-width:980px) and (orientation:landscape){
