@@ -179,7 +179,7 @@
     if(!blocked())elapsed+=dt;
     if(elapsed>=cycle&&!transition&&!pending){elapsed=0;goTo(current+1);}
     const bar=transition?transition.to:pending?pending.to:current;
-    fills.forEach((f,i)=>{f.style.transform=`scaleX(${i===bar?clamp(elapsed/cycle).toFixed(4):0})`;});
+    fills.forEach((f,i)=>{f.style.setProperty('--story-progress',i===bar?clamp(elapsed/cycle).toFixed(4):'0');});
     if(!document.hidden&&visible)requestTick();
   }
   function fit(){
