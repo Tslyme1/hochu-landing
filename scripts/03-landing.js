@@ -344,28 +344,25 @@
     // The copy is centered in that zone instead of being pinned to an arbitrary Y coordinate.
     if(innerWidth<=980 && !(innerHeight<=510 && innerWidth>innerHeight)) {
       const phoneScenes=scenes.filter((_,i)=>i<chapters.length-1);
-      // 14px keeps the headline clear of the tab rail instead of touching it.
-      const navBottom=Math.max(nav.getBoundingClientRect().bottom,innerWidth<=360?88:100)+14;
+      const railBottom=Math.max(nav.getBoundingClientRect().bottom,innerWidth<=360?88:100);
       const maxCopyHeight=Math.max(...phoneScenes.map(s=>s.copy.offsetHeight));
       const bottom=innerHeight<=650&&innerWidth<=600?10:16;
       const ratio=innerHeight<=650?.56:(innerWidth<=430?.64:.66);
       const maxByWidth=(innerWidth*.80)/.466;
       const desired=Math.min(height*ratio,maxByWidth);
-      // Breathing room between the last line of copy and the top of the device.
-      const gap=innerHeight<=650?26:38;
-      const available=Math.max(230,height-bottom-(navBottom+maxCopyHeight+gap));
+      // Breathing room on BOTH sides of the copy. Reserving it on one side only
+      // let the device grow until the text was nearly touching it.
+      const gap=innerHeight<=650?24:34;
+      const available=Math.max(230,height-bottom-(railBottom+maxCopyHeight+gap*2));
       const phoneHeight=Math.max(230,Math.min(desired,available));
       root.style.setProperty('--phone-h',Math.floor(phoneHeight)+'px');
       const phoneTop=height-bottom-phoneHeight;
-      // Every chapter's copy sits the same distance above the device. Centering
-      // one shared axis in the band instead left the taller chapters crowding
-      // the phone while the shorter ones floated, which read as uneven.
-      root.style.removeProperty('--mobile-copy-y');
-      phoneScenes.forEach(s=>{
-        const own=s.copy.offsetHeight;
-        const center=Math.max(navBottom+own/2,phoneTop-gap-own/2);
-        s.copy.style.setProperty('--mobile-copy-y',Math.round(center)+'px');
-      });
+      // One axis, halfway between the tab rail and the device: whatever a
+      // chapter's copy is one line or three, the space above and below it
+      // matches. 12px keeps the tallest headline off the rail on short screens.
+      const center=Math.max(railBottom+12+maxCopyHeight/2,railBottom+(phoneTop-railBottom)/2);
+      root.style.setProperty('--mobile-copy-y',Math.round(center)+'px');
+      phoneScenes.forEach(s=>s.copy.style.removeProperty('--mobile-copy-y'));
     } else {
       root.style.removeProperty('--mobile-copy-y');
       scenes.forEach(s=>s.copy.style.removeProperty('--mobile-copy-y'));
