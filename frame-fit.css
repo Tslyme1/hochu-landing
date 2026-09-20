@@ -13,6 +13,7 @@
 .phone .phone-screen video.screen-image[data-landing-video] {
   background: transparent !important;
   object-fit: contain !important;
+  object-position: 50% 50% !important;
 }
 /* Safari surface v2. Background artwork may continue behind browser controls;
    no opaque fixed/sticky rectangle should request a solid toolbar extension.
