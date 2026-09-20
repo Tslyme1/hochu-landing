@@ -9,7 +9,7 @@
   const screenByScene = {0:'home',1:'search',2:'neuro',4:'chats',5:'tickets',6:'create'};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const watched = new WeakSet(), pending = new WeakSet(), wanted = new Set();
-  let previousMain = null, previousViewer = null, viewerOpened = false;
+  let previousMain = null, previousArriving = null, previousViewer = null, viewerOpened = false;
   let scheduled = 0, inPage = true;
   const viewer = document.querySelector('.mobile-viewer-v26');
   function configure(video) {
@@ -61,33 +61,36 @@
     const all=mains.concat(enlargedVideos);
     all.forEach(watch);
     const key=screenByScene[Number(stage.dataset.scene)];
-    const byScene=mains.find(v=>v.dataset.screen===key)||null;
-    // A chapter change composites the incoming screen (z-index 2) while it is
-    // still transparent, but data-scene only flips at the halfway point. Keying
-    // off the composited layer prepares the video before anyone can see it;
-    // seeking and starting playback once it was already half-faded-in is what
-    // produced the flash on phones.
-    const incoming=mains.find(v=>v.style.zIndex==='2')||null;
-    const main=incoming||byScene;
+    const main=mains.find(v=>v.dataset.screen===key)||null;
+    const opacityOf=v=>v?Number(v.style.opacity||'0'):0;
+    // paintScreens() parks the NEXT chapter's layer at z-index 2 even while the
+    // story sits still, so z-index alone does not mean "arriving" -- reading it
+    // that way started the wrong clip and left the visible one paused.
+    // During a chapter change, though, that layer is composited and still
+    // transparent, which is the moment to get it running: seeking or starting
+    // playback after it has faded in is what flashed on phones.
+    const arriving=stage.dataset.navigating
+      ? mains.find(v=>v.style.zIndex==='2'&&v!==main)||null
+      : null;
     const screen=open?[...viewer.querySelectorAll('.mv-frame .screen-image')].find(el=>el.style.zIndex==='2'):null;
     const enlarged=screen?.matches(selector)?screen:null;
     // Rewinding a frame that is on screen shows the seek. Only rewind a hidden one.
-    const hidden=v=>!v||Number(v.style.opacity||'0')<=.02;
-    if(main!==previousMain&&hidden(main))seek(main);
+    if(main!==previousMain&&opacityOf(main)<=.02)seek(main);
+    if(arriving&&arriving!==previousArriving&&opacityOf(arriving)<=.02)seek(arriving);
     if(enlarged!==previousViewer) {
       const same=open&&!viewerOpened&&main&&enlarged&&main.dataset.screen===enlarged.dataset.screen;
       seek(enlarged,same?main.currentTime:0);
     }
-    previousMain=main;previousViewer=enlarged;viewerOpened=open;
+    previousMain=main;previousArriving=arriving;previousViewer=enlarged;viewerOpened=open;
     wanted.clear();
     if(inPage&&!document.hidden&&!reduced.matches&&!document.getElementById('download-dialog')?.open) {
       const active=open?enlarged:main;
       if(active)wanted.add(active);
-      // The outgoing screen is still fully opaque underneath during the
-      // cross-fade; pausing it there froze the picture mid-transition.
+      // Mid cross-fade both layers are on screen: the outgoing one is still
+      // opaque underneath, and the arriving one has to be running before it is
+      // revealed. Pausing either one froze the picture in the middle.
       if(!open&&stage.dataset.navigating){
-        const outgoing=mains.find(v=>v.style.zIndex==='1');
-        if(outgoing)wanted.add(outgoing);
+        mains.forEach(v=>{if(opacityOf(v)>.02||v===arriving)wanted.add(v);});
       }
     }
     all.forEach(v=>{if(wanted.has(v))tryPlay(v);else if(!v.paused)v.pause();});
