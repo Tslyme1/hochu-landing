@@ -346,17 +346,21 @@
       const phoneScenes=scenes.filter((_,i)=>i<chapters.length-1);
       const railBottom=Math.max(nav.getBoundingClientRect().bottom,innerWidth<=360?88:100);
       const maxCopyHeight=Math.max(...phoneScenes.map(s=>s.copy.offsetHeight));
-      const bottom=innerHeight<=650&&innerWidth<=600?10:16;
-      const ratio=innerHeight<=650?.56:(innerWidth<=430?.64:.66);
-      const maxByWidth=(innerWidth*.80)/.466;
-      const desired=Math.min(height*ratio,maxByWidth);
       // Breathing room on BOTH sides of the copy. Reserving it on one side only
       // let the device grow until the text was nearly touching it.
       const gap=innerHeight<=650?24:34;
-      const available=Math.max(230,height-bottom-(railBottom+maxCopyHeight+gap*2));
-      const phoneHeight=Math.max(230,Math.min(desired,available));
+      const phoneTop=railBottom+maxCopyHeight+gap*2;
+      // Holding the whole device above the fold is what kept it small: its own
+      // proportions turn spare height into very little width, so it sat at two
+      // fifths of a small screen. It runs past the bottom edge instead, the way
+      // a phone held in the hand does.
+      const bleed=height*(height<=700?.16:.12);
+      const phoneHeight=Math.max(230,Math.min(
+        (innerWidth*.80)/.466,
+        height-8+bleed-phoneTop,
+        height*.86));
       root.style.setProperty('--phone-h',Math.floor(phoneHeight)+'px');
-      const phoneTop=height-bottom-phoneHeight;
+      root.style.setProperty('--phone-cy',Math.round(phoneTop+phoneHeight/2)+'px');
       // One axis, halfway between the tab rail and the device: whatever a
       // chapter's copy is one line or three, the space above and below it
       // matches. 12px keeps the tallest headline off the rail on short screens.
@@ -365,6 +369,7 @@
       phoneScenes.forEach(s=>s.copy.style.removeProperty('--mobile-copy-y'));
     } else {
       root.style.removeProperty('--mobile-copy-y');
+      root.style.removeProperty('--phone-cy');
       scenes.forEach(s=>s.copy.style.removeProperty('--mobile-copy-y'));
     }
     step=Math.round(height*clamp(Number(config.chapterLength)||1.25,.8,2));
@@ -551,6 +556,7 @@
   function routeHash() {const i=indexFromHash();if(i>=0)goTo(i,'instant');}
   addEventListener('hashchange',()=>{const i=indexFromHash();if(i>=0)goTo(i);});
   addEventListener('pageshow',requestPaint);
+  if(!location.hash)window.scrollTo({top:0,behavior:'instant'});
   measure(); routeHash(); paint(visual);
   // Small integration API, also used by the supplied regression test.
   window.HochuStory={

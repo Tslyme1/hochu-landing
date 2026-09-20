@@ -1,6 +1,9 @@
 
 (function(){
   'use strict';
+  // The story is driven by scroll position, so a restored offset would reopen
+  // the page in the middle of it. Every visit starts at the first chapter.
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
   var el=document.getElementById('app-loader');
   if(!el)return;
   var mark=document.getElementById('app-loader-mark');

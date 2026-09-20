@@ -1527,3 +1527,12 @@ video[data-landing-video]::-webkit-media-controls-overlay-play-button {
   mask-image:linear-gradient(#fff,#fff);
 }
 
+/* The device is placed from the centre measured in JS, so it can run past the
+   bottom edge instead of being squeezed into the space above it. */
+@media (max-width:980px){
+  :root{--phone-y:var(--phone-cy,calc(100dvh - 12px - var(--phone-h)/2)) !important;}
+  .phone-chevron{width:38px !important;height:38px !important;}
+  .phone-chevron > span{width:10px !important;height:10px !important;}
+  .phone-chevron-prev{left:max(6px,calc(50% - var(--phone-w)/2 - 44px)) !important;}
+  .phone-chevron-next{right:max(6px,calc(50% - var(--phone-w)/2 - 44px)) !important;}
+}
