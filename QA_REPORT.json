@@ -1,0 +1,1248 @@
+{
+  "method": "Chromium headless; original inline document versus external-resource package served through local Playwright route. Physical phones/Safari and production hosting not tested.",
+  "total": 104,
+  "passed": 104,
+  "failed": 0,
+  "checks": [
+    {
+      "test": "320x568, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 5,
+        "y": 9.82432,
+        "width": 111.625,
+        "height": 241.344,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0033999999999991815,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 5,
+        "y": 9.82432,
+        "width": 111.625,
+        "height": 241.344,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0033999999999991815,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 5,
+        "y": 9.82432,
+        "width": 111.625,
+        "height": 241.344,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0033999999999991815,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 5,
+        "y": 9.64733,
+        "width": 111.625,
+        "height": 241.703,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0010775862069039022,
+        "gapY": 2.842170943040401e-14,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 5,
+        "y": 9.64733,
+        "width": 111.625,
+        "height": 241.703,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0010775862069039022,
+        "gapY": 2.842170943040401e-14,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 5,
+        "y": 9.82432,
+        "width": 111.625,
+        "height": 241.344,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.0033999999999991815,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "320x568, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 5,
+        "y": 9.25866,
+        "width": 111.625,
+        "height": 242.469,
+        "parentWidth": 121.625,
+        "parentHeight": 261,
+        "gapX": 0.006300155520989392,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "320x568, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 5,
+        "y": 8.90919,
+        "width": 224.844,
+        "height": 486.172,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.022810810810824478,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 5,
+        "y": 8.90919,
+        "width": 224.844,
+        "height": 486.172,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.022810810810824478,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 5,
+        "y": 8.90919,
+        "width": 224.844,
+        "height": 486.172,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.022810810810824478,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 5,
+        "y": 8.55266,
+        "width": 224.844,
+        "height": 486.891,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.02879200000000992,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 5,
+        "y": 8.55266,
+        "width": 224.844,
+        "height": 486.891,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.02879200000000992,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 5,
+        "y": 8.90919,
+        "width": 224.844,
+        "height": 486.172,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.022810810810824478,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "390x844, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 5,
+        "y": 7.7697,
+        "width": 224.844,
+        "height": 488.453,
+        "parentWidth": 234.859,
+        "parentHeight": 504,
+        "gapX": 0,
+        "gapY": 0.02498648648645485,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "390x844, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 5,
+        "y": 9.18216,
+        "width": 190.844,
+        "height": 412.625,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.00493749999998272,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 5,
+        "y": 9.18216,
+        "width": 190.844,
+        "height": 412.625,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.00493749999998272,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 5,
+        "y": 9.18216,
+        "width": 190.844,
+        "height": 412.625,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.00493749999998272,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 5,
+        "y": 8.87956,
+        "width": 190.844,
+        "height": 413.234,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.0031748768472823485,
+        "gapY": 0,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 5,
+        "y": 8.87956,
+        "width": 190.844,
+        "height": 413.234,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.0031748768472823485,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 5,
+        "y": 9.18216,
+        "width": 190.844,
+        "height": 412.625,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.00493749999998272,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "416x780, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 5,
+        "y": 8.21505,
+        "width": 190.844,
+        "height": 414.562,
+        "parentWidth": 200.844,
+        "parentHeight": 431,
+        "gapX": 0.003639191290801591,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "416x780, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 6,
+        "y": 10.5876,
+        "width": 282.969,
+        "height": 611.812,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.005949999999984357,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 6,
+        "y": 10.5876,
+        "width": 282.969,
+        "height": 611.812,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.005949999999984357,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 6,
+        "y": 10.5876,
+        "width": 282.969,
+        "height": 611.812,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.005949999999984357,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 6,
+        "y": 10.1389,
+        "width": 282.969,
+        "height": 612.719,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.0014815270935741864,
+        "gapY": 0,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 6,
+        "y": 10.1389,
+        "width": 282.969,
+        "height": 612.719,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.0014815270935741864,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 6,
+        "y": 10.5876,
+        "width": 282.969,
+        "height": 611.812,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.005949999999984357,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "768x1024, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 6,
+        "y": 9.1536,
+        "width": 282.969,
+        "height": 614.688,
+        "parentWidth": 294.969,
+        "parentHeight": 633,
+        "gapX": 0.0022068429237833698,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "768x1024, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 6,
+        "y": 11.9051,
+        "width": 120.641,
+        "height": 260.875,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.029594594594584578,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 6,
+        "y": 11.9051,
+        "width": 120.641,
+        "height": 260.875,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.029594594594584578,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 6,
+        "y": 11.9051,
+        "width": 120.641,
+        "height": 260.875,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.029594594594584578,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 6,
+        "y": 11.7138,
+        "width": 120.641,
+        "height": 261.25,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.022021333333327675,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 6,
+        "y": 11.7138,
+        "width": 120.641,
+        "height": 261.25,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.022021333333327675,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 6,
+        "y": 11.9051,
+        "width": 120.641,
+        "height": 260.875,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.029594594594584578,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "844x390, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 6,
+        "y": 11.2936,
+        "width": 120.641,
+        "height": 262.094,
+        "parentWidth": 132.656,
+        "parentHeight": 284.688,
+        "gapX": 0,
+        "gapY": 0.0258817567567462,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "844x390, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 0: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 0: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "home",
+        "x": 7,
+        "y": 12.3481,
+        "width": 330.812,
+        "height": 715.297,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.02781081081081993,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 1: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 1: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "search",
+        "x": 7,
+        "y": 12.3481,
+        "width": 330.812,
+        "height": 715.297,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.02781081081081993,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 2: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 2: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "neuro",
+        "x": 7,
+        "y": 12.3481,
+        "width": 330.812,
+        "height": 715.297,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.02781081081081993,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 3: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 3: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "feed",
+        "x": 7,
+        "y": 11.8236,
+        "width": 330.812,
+        "height": 716.344,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.025749333333351387,
+        "fit": "fill",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 4: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 4: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "chats",
+        "x": 7,
+        "y": 11.8236,
+        "width": 330.812,
+        "height": 716.344,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.025749333333351387,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          750,
+          1624
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 5: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 5: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 7,
+        "y": 12.3481,
+        "width": 330.812,
+        "height": 715.297,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.02781081081081993,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 6: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "1440x1000, scene 6: fitted raster has no letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 7,
+        "y": 10.6716,
+        "width": 330.812,
+        "height": 718.656,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.033986486486355716,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "1440x1000, scene 7: outer layout unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "home: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "search: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "neuro: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "chats: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "tickets: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "create: original video plays, no controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "Original enlarged viewer: fitted raster",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 5,
+        "y": 6.8431,
+        "width": 294.188,
+        "height": 639.062,
+        "parentWidth": 304.188,
+        "parentHeight": 652.75,
+        "gapX": 0.0008273716951521237,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "Enlarged viewer: main videos pause",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "Enlarged viewer: native controls hidden",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "Viewer switch fits next source",
+      "passed": true,
+      "detail": {
+        "key": "tickets",
+        "x": 5,
+        "y": 8.33392,
+        "width": 294.188,
+        "height": 636.078,
+        "parentWidth": 304.188,
+        "parentHeight": 652.75,
+        "gapX": 0.0019250000000283762,
+        "gapY": 0,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1280
+        ]
+      }
+    },
+    {
+      "test": "Desktop tilt does not open a white letterbox",
+      "passed": true,
+      "detail": {
+        "key": "create",
+        "x": 7,
+        "y": 10.6716,
+        "width": 330.812,
+        "height": 718.656,
+        "parentWidth": 344.828,
+        "parentHeight": 740,
+        "gapX": 0,
+        "gapY": 0.033986486486355716,
+        "fit": "contain",
+        "background": "rgba(0, 0, 0, 0)",
+        "ratio": [
+          592,
+          1286
+        ]
+      }
+    },
+    {
+      "test": "Reduced motion pauses every video",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "test": "No missing external resources",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "test": "No JavaScript errors",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

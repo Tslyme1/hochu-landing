@@ -1,0 +1,177 @@
+{
+  "source": "Khochu_Updated_Authors_Chats_Site.zip",
+  "checks": {
+    "copy_identical": true,
+    "scene_order_identical": true,
+    "nav_text_identical": true,
+    "svg_illustrations_identical": true,
+    "videos_byte_identical": true,
+    "center_loader_script_identical": true
+  },
+  "video_files": [
+    {
+      "path": "assets/neuro-rounded-light.mp4",
+      "width": 592,
+      "height": 1280,
+      "bytes": 5712817,
+      "duration": "36.933333",
+      "sha256": "0f1bc34e8afd62482d54ca93e0f486c87edfeaef6579a581f7757f4161a8ba28"
+    },
+    {
+      "path": "assets/search-rounded-light.mp4",
+      "width": 592,
+      "height": 1280,
+      "bytes": 5884117,
+      "duration": "24.133333",
+      "sha256": "b38f7edb10cae068aff890c0ed16a747f366dcade117f7fda7d1eb513e08155a"
+    },
+    {
+      "path": "assets/home-rounded-light.mp4",
+      "width": 592,
+      "height": 1280,
+      "bytes": 2319035,
+      "duration": "13.066667",
+      "sha256": "809e216ed578ddece66356b1a4e8160ec4bdab019d4b3ad10229ec44727d576c"
+    },
+    {
+      "path": "assets/tickets-rounded-v2.mp4",
+      "width": 592,
+      "height": 1280,
+      "bytes": 1078997,
+      "duration": "10.350000",
+      "sha256": "c886ee046c36d7255b0d9fd48c4c4edf63fc11f1673f761e3ee950c74e6376f3"
+    },
+    {
+      "path": "assets/chats-added-v3.mp4",
+      "width": 750,
+      "height": 1624,
+      "bytes": 1509469,
+      "duration": "28.500000",
+      "sha256": "3d62b105e171e7c547264bc718ac432127c510ba1099fb8fda48b99c2e2a9a82"
+    },
+    {
+      "path": "assets/authors-updated-v3.mp4",
+      "width": 592,
+      "height": 1286,
+      "bytes": 2937379,
+      "duration": "29.933333",
+      "sha256": "80024f7350a297f457f3560935595d09f78ba493c8947c128a6fcbd05b153243"
+    }
+  ],
+  "extracted_images": [
+    {
+      "path": "assets/images/7cf432b599e2f63310.webp",
+      "bytes": 8808,
+      "sha256": "7cf432b599e2f6331072f8df415f9eca357a5567a2548cc6b50f19a1dcb8559e"
+    },
+    {
+      "path": "assets/images/6766ab08448a475bb0.webp",
+      "bytes": 250422,
+      "sha256": "6766ab08448a475bb051de4c63e6b3a80b3556a7196576a46f3597ca21c5170c"
+    },
+    {
+      "path": "assets/images/03e8a0d764bfa492a5.jpg",
+      "bytes": 22841,
+      "sha256": "03e8a0d764bfa492a51cb01457739eb8f009f688bde8b990b3af385e69de8e29"
+    },
+    {
+      "path": "assets/images/396a48afbbefa7aa42.jpg",
+      "bytes": 21369,
+      "sha256": "396a48afbbefa7aa426a33f801f238cde77d6a814445b9f6703101062c6d620c"
+    },
+    {
+      "path": "assets/images/363d18fab2e895fe76.jpg",
+      "bytes": 30864,
+      "sha256": "363d18fab2e895fe76a2c783e97dd0727ad3a7ed41ad1e3315c0c4b2a0d10ca9"
+    },
+    {
+      "path": "assets/images/c6c0909a3975846b67.jpg",
+      "bytes": 21280,
+      "sha256": "c6c0909a3975846b678dcc837d3507d429b58752a34e345910e55b1f6f815dca"
+    },
+    {
+      "path": "assets/images/d7054f984faa7eee7a.webp",
+      "bytes": 279822,
+      "sha256": "d7054f984faa7eee7ae18e2d396e0d071e72658838a35620a8f8915c912e1895"
+    },
+    {
+      "path": "assets/images/089eebd7932ff79f8a.webp",
+      "bytes": 380294,
+      "sha256": "089eebd7932ff79f8a65d2934765ddbd448a44d95ad2a08c30786f693e81069e"
+    },
+    {
+      "path": "assets/images/6679bfa36a1cc626ef.webp",
+      "bytes": 592124,
+      "sha256": "6679bfa36a1cc626ef47063b049057cc8c90de949f2ecba2bb30f3e9d674535f"
+    },
+    {
+      "path": "assets/images/6d97d733da4ee0b551.webp",
+      "bytes": 432558,
+      "sha256": "6d97d733da4ee0b5514d338f63cf387ab9543b535031e7a4a8ac4a00dc7466e9"
+    },
+    {
+      "path": "assets/images/f08052cd7c1ff74da8.webp",
+      "bytes": 544452,
+      "sha256": "f08052cd7c1ff74da890f1a145fdf4a274dd50d2a3dce4367dcb13a7c49c002c"
+    },
+    {
+      "path": "assets/images/2487d876d7d669b96f.webp",
+      "bytes": 500620,
+      "sha256": "2487d876d7d669b96f22db418620861af16534b022e5ace95ff1da113ebd6cb7"
+    },
+    {
+      "path": "assets/images/b3813ed08017f09ef7.webp",
+      "bytes": 473224,
+      "sha256": "b3813ed08017f09ef73dfdcc6af0a0f21e185c58fdea9b10820f787bc374e8ee"
+    }
+  ],
+  "original_styles": 26,
+  "original_scripts": 11,
+  "script_files": [
+    {
+      "path": "scripts/01-app-loader-v31-js.js",
+      "sha256": "b685efa9e00cfbd1314922f91a64ad67a697dcb6db42713c15a6d57181008118"
+    },
+    {
+      "path": "scripts/02-config.js",
+      "sha256": "5cffdb72993ac5a33b2b7ebdd3baf512cb6dcb20e9011d6c2259982551bd2cdf"
+    },
+    {
+      "path": "scripts/03-landing.js",
+      "sha256": "8ef289ac3ea572dbc53fcc07661cae770fd1d8ebd7b91c3cacfb3bc682f26943"
+    },
+    {
+      "path": "scripts/04-landing.js",
+      "sha256": "9bff4443fe6637a8d42b60e94c96b7f09816579b2683d620f9f570e70bcb3cea"
+    },
+    {
+      "path": "scripts/05-phone-parallax-v11-js.js",
+      "sha256": "522cdd44aae041054c112deeaaa98dab6f69899e82b2d322e097564e2ba2bb72"
+    },
+    {
+      "path": "scripts/06-finale-scene-reference-match-script.js",
+      "sha256": "a7b5fc84d78f8bf9e07e15f16861e3797c730fce0cf0339adea0370e7a2ab97f"
+    },
+    {
+      "path": "scripts/07-desktop-menu-slider-restored-v23.js",
+      "sha256": "f82aa78b447c76a944512b163153b4b13f8b937adff65cc0c171147f91f98761"
+    },
+    {
+      "path": "scripts/08-phone-anchor-parent-fix-v24.js",
+      "sha256": "fc6df32ffa33128709f40b37e9051d076e4d0818172ee264f656ddd8dbbdf28e"
+    },
+    {
+      "path": "scripts/09-mobile-chevron-sticky-fix-v23.js",
+      "sha256": "695f38d54037977f64cc9b8f3a5a96c9cf2ae5a0c0dc7a420edd681d8f9b1bcc"
+    },
+    {
+      "path": "scripts/10-mobile-ui-v30.js",
+      "sha256": "251f2823623a56e76924e6babd2a6cc7bd9e346f80fe797c24e3671a1ef1d30a"
+    },
+    {
+      "path": "scripts/11-rounded-media-controller.js",
+      "sha256": "5c14467ffeb6df2fb09c7af235fd4031002e924480dbf68cacf3db798f8c2e48"
+    }
+  ],
+  "max_file_limit_bytes": 25000000
+}

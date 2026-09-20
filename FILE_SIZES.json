@@ -1,0 +1,198 @@
+{
+  "limit_bytes": 25000000,
+  "all_files_under_limit": true,
+  "largest_file": {
+    "path": "assets/search-rounded-light.mp4",
+    "bytes": 5884117
+  },
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 78
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 150
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0
+    },
+    {
+      "path": "BUILD_REPORT.json",
+      "bytes": 5767
+    },
+    {
+      "path": "QA_REPORT.json",
+      "bytes": 28933
+    },
+    {
+      "path": "README_RU.md",
+      "bytes": 7034
+    },
+    {
+      "path": "assets/authors-updated-v3.mp4",
+      "bytes": 2937379
+    },
+    {
+      "path": "assets/authors-updated-v3.webp",
+      "bytes": 60626
+    },
+    {
+      "path": "assets/chats-added-v3.mp4",
+      "bytes": 1509469
+    },
+    {
+      "path": "assets/chats-updated-v3.webp",
+      "bytes": 66362
+    },
+    {
+      "path": "assets/home-rounded-light.mp4",
+      "bytes": 2319035
+    },
+    {
+      "path": "assets/home-rounded-v2.webp",
+      "bytes": 50742
+    },
+    {
+      "path": "assets/images/03e8a0d764bfa492a5.jpg",
+      "bytes": 22841
+    },
+    {
+      "path": "assets/images/089eebd7932ff79f8a.webp",
+      "bytes": 380294
+    },
+    {
+      "path": "assets/images/2487d876d7d669b96f.webp",
+      "bytes": 500620
+    },
+    {
+      "path": "assets/images/363d18fab2e895fe76.jpg",
+      "bytes": 30864
+    },
+    {
+      "path": "assets/images/396a48afbbefa7aa42.jpg",
+      "bytes": 21369
+    },
+    {
+      "path": "assets/images/6679bfa36a1cc626ef.webp",
+      "bytes": 592124
+    },
+    {
+      "path": "assets/images/6766ab08448a475bb0.webp",
+      "bytes": 250422
+    },
+    {
+      "path": "assets/images/6d97d733da4ee0b551.webp",
+      "bytes": 432558
+    },
+    {
+      "path": "assets/images/7cf432b599e2f63310.webp",
+      "bytes": 8808
+    },
+    {
+      "path": "assets/images/b3813ed08017f09ef7.webp",
+      "bytes": 473224
+    },
+    {
+      "path": "assets/images/c6c0909a3975846b67.jpg",
+      "bytes": 21280
+    },
+    {
+      "path": "assets/images/d7054f984faa7eee7a.webp",
+      "bytes": 279822
+    },
+    {
+      "path": "assets/images/f08052cd7c1ff74da8.webp",
+      "bytes": 544452
+    },
+    {
+      "path": "assets/neuro-rounded-light.mp4",
+      "bytes": 5712817
+    },
+    {
+      "path": "assets/neuro-rounded-v2.webp",
+      "bytes": 58620
+    },
+    {
+      "path": "assets/search-rounded-light.mp4",
+      "bytes": 5884117
+    },
+    {
+      "path": "assets/search-rounded-v2.webp",
+      "bytes": 51164
+    },
+    {
+      "path": "assets/tickets-rounded-v2.mp4",
+      "bytes": 1078997
+    },
+    {
+      "path": "assets/tickets-rounded-v2.webp",
+      "bytes": 108484
+    },
+    {
+      "path": "frame-fit.css",
+      "bytes": 729
+    },
+    {
+      "path": "index.html",
+      "bytes": 81998
+    },
+    {
+      "path": "scripts/01-app-loader-v31-js.js",
+      "bytes": 2867
+    },
+    {
+      "path": "scripts/02-config.js",
+      "bytes": 259
+    },
+    {
+      "path": "scripts/03-landing.js",
+      "bytes": 30358
+    },
+    {
+      "path": "scripts/04-landing.js",
+      "bytes": 1146
+    },
+    {
+      "path": "scripts/05-phone-parallax-v11-js.js",
+      "bytes": 1818
+    },
+    {
+      "path": "scripts/06-finale-scene-reference-match-script.js",
+      "bytes": 3414
+    },
+    {
+      "path": "scripts/07-desktop-menu-slider-restored-v23.js",
+      "bytes": 2054
+    },
+    {
+      "path": "scripts/08-phone-anchor-parent-fix-v24.js",
+      "bytes": 215
+    },
+    {
+      "path": "scripts/09-mobile-chevron-sticky-fix-v23.js",
+      "bytes": 461
+    },
+    {
+      "path": "scripts/10-mobile-ui-v30.js",
+      "bytes": 8427
+    },
+    {
+      "path": "scripts/11-rounded-media-controller.js",
+      "bytes": 4767
+    },
+    {
+      "path": "scripts/frame-fit.js",
+      "bytes": 3824
+    },
+    {
+      "path": "styles.css",
+      "bytes": 104035
+    },
+    {
+      "path": "tools/check_file_sizes.py",
+      "bytes": 1362
+    }
+  ]
+}

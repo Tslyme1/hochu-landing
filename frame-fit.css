@@ -1,0 +1,17 @@
+/* Match the visible screen to the real video raster; keep the outer phone intact.
+   The matte bezel, not a white letterbox, fills the remaining physical inset. */
+.phone > .phone-screen {
+  position: absolute !important;
+  left: var(--media-screen-left, 7px) !important;
+  top: var(--media-screen-top, 7px) !important;
+  width: var(--media-screen-width, calc(100% - 14px)) !important;
+  height: var(--media-screen-height, calc(100% - 14px)) !important;
+  margin: 0 !important;
+  background: #0b1017 !important;
+  transform: translateZ(0) !important;
+}
+.phone .phone-screen video.screen-image[data-landing-video] {
+  background: transparent !important;
+  object-fit: contain !important;
+  object-position: 50% 50% !important;
+}

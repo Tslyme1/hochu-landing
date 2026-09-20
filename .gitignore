@@ -1,0 +1,9 @@
+# Local archives/build outputs do not belong in the repository.
+.DS_Store
+Thumbs.db
+*.zip
+*.log
+__pycache__/
+node_modules/
+_local/
+source-recordings/
