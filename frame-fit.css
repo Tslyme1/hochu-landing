@@ -13,5 +13,56 @@
 .phone .phone-screen video.screen-image[data-landing-video] {
   background: transparent !important;
   object-fit: contain !important;
-  object-position: 50% 50% !important;
+}
+/* Safari surface v2. Background artwork may continue behind browser controls;
+   no opaque fixed/sticky rectangle should request a solid toolbar extension.
+   See WebKit issue 301756. Browser chrome itself is not styled by this CSS. */
+@media (max-width:980px) {
+  html:root, html body {
+    background-color:transparent !important;
+    background-image:linear-gradient(var(--bg,#079fee),var(--bg,#079fee)) !important;
+    background-attachment:scroll !important;
+  }
+  html #stage {
+    background-color:transparent !important;
+    background-image:none !important;
+    overflow:visible !important;
+  }
+  html #scenes { overflow:visible !important; }
+  html #stage > .ambient {
+    /* An absolute child, NOT a viewport-constrained solid-color surface. */
+    position:absolute !important;
+    inset:0 !important;
+    overflow:visible !important;
+    background:transparent !important;
+  }
+  html #stage > .ambient::before {
+    content:"";
+    position:absolute;
+    inset:calc(-1 * var(--safari-bleed-top,100px)) 0 calc(-1 * var(--safari-bleed-bottom,180px));
+    z-index:-1;
+    pointer-events:none;
+    background-image:linear-gradient(var(--bg,#079fee),var(--bg,#079fee));
+  }
+  /* Decorations can bleed; the phone/video still uses its own rounded clip. */
+  html #stage > .ambient > .brand-bands { overflow:visible !important; }
+  html .app-loader {
+    background-color:transparent !important;
+    background-image:linear-gradient(#079fee,#079fee) !important;
+  }
+  html .mobile-viewer-v26 {
+    background-color:transparent !important;
+    background-image:none !important;
+  }
+  html .mobile-viewer-v26::before {
+    content:"";position:absolute;pointer-events:none;z-index:-1;
+    inset:calc(-1 * var(--safari-bleed-top,100px)) 0 calc(-1 * var(--safari-bleed-bottom,180px));
+    background-image:linear-gradient(rgba(9,15,28,.88),rgba(9,15,28,.88));
+  }
+  html .mobile-viewer-v26:not(.is-open) {
+    /* A hidden fixed backdrop must not remain a toolbar-color candidate. */
+    background:transparent !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
 }
