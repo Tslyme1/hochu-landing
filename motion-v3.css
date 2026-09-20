@@ -24,12 +24,13 @@ html body{background:transparent!important;min-height:100svh;overflow-x:clip!imp
 .phone .screen-image{object-fit:contain!important;object-position:center!important;transform:none!important;mask:none!important;-webkit-mask:none!important;clip-path:none!important;filter:none!important;will-change:opacity;backface-visibility:hidden;pointer-events:none!important;}
 .phone video.screen-image{background:transparent!important;}
 .media-fallback{pointer-events:none!important;}
-#stories-pagination{position:absolute;left:50%;top:var(--motion-nav-top,84px);transform:translateX(-50%);width:min(580px,calc(100% - 44px));display:flex;gap:6px;height:32px;z-index:45;}
-#stories-pagination button{position:relative;flex:0 0 var(--story-dot-cell,30px);min-width:0;height:32px;transition:flex-grow .34s cubic-bezier(.22,1,.36,1),flex-basis .34s cubic-bezier(.22,1,.36,1);padding:0;background:transparent;border:0;touch-action:manipulation;color:var(--fg);}
-#stories-pagination button::before,#stories-pagination .story-fill{position:absolute;left:calc(50% - 3px);right:auto;top:13px;width:6px;height:6px;border-radius:999px;background:currentColor;pointer-events:none;transition:left .34s ease,width .34s ease,opacity .25s ease;}
+/* Compact rail: 40px active mark, 6px dots, 20px dot-center spacing. */
+#stories-pagination{position:absolute;left:50%;top:var(--motion-nav-top,84px);transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);display:flex;gap:2px;height:32px;z-index:45;}
+#stories-pagination button{position:relative;flex:0 0 18px;min-width:0;height:32px;transition:flex-basis .34s cubic-bezier(.22,1,.36,1);padding:0;background:transparent;border:0;touch-action:manipulation;color:var(--fg);}
+#stories-pagination button::before,#stories-pagination .story-fill{position:absolute;left:calc(50% - 3px);right:auto;top:13px;width:6px;height:6px;border-radius:999px;background:currentColor;pointer-events:none;transition:left .34s ease,width .34s ease,top .34s ease,height .34s ease,opacity .25s ease;}
 #stories-pagination button::before{content:"";opacity:.32;}
-#stories-pagination button[aria-current="step"]{flex:1 1 var(--story-dot-cell,30px);}
-#stories-pagination button[aria-current="step"]::before,#stories-pagination button[aria-current="step"] .story-fill{left:6px;width:calc(100% - 12px);}
+#stories-pagination button[aria-current="step"]{flex:0 0 48px;}
+#stories-pagination button[aria-current="step"]::before,#stories-pagination button[aria-current="step"] .story-fill{left:4px;top:14px;width:calc(100% - 8px);height:4px;}
 #stories-pagination button::after{content:"";position:absolute;inset:-6px 0;pointer-events:auto;}
 #stories-pagination .story-fill{opacity:0;transform:scaleX(0);transform-origin:left;will-change:transform;}
 #stories-pagination button[aria-current="step"] .story-fill{opacity:1;}
@@ -55,7 +56,7 @@ html .app-loader{background-color:transparent!important;background-image:linear-
 @media(min-width:981px){
  #stage .header .brand{font-size:24px!important;letter-spacing:-1px!important;gap:7px!important;}
  #stage .header .brand img{width:31px!important;height:32px!important;}
- #stories-pagination{top:39px;max-width:640px;width:calc(100% - 490px);}
+ #stories-pagination{top:39px;}
  #stage .phone-chevron{display:none!important;}
 }
 @media(max-width:980px){
@@ -67,7 +68,7 @@ html .app-loader{background-color:transparent!important;background-image:linear-
  #stage .header .app-store strong{font-size:14px!important;}
  #stage .header .app-store small{font-size:7px!important;}
  #stage .header .app-store svg{width:22px!important;height:24px!important;}
- #stories-pagination{left:18px;right:18px;transform:none;width:auto;gap:5px;}
+ #stories-pagination{left:50%;right:auto;transform:translateX(-50%);width:max-content;gap:2px;}
  #stage .scene:not(.scene-finale) .copy{left:4%!important;right:auto!important;top:var(--motion-copy-top-local,var(--motion-copy-top,106px))!important;width:92%!important;transform:none!important;text-align:center;}
  #stage .scene:not(.scene-finale) h1,#stage .scene:not(.scene-finale) h2{font-size:var(--motion-heading,33px)!important;line-height:1.07!important;letter-spacing:-.05em!important;max-width:100%!important;}
  #stage .scene:not(.scene-finale) .description{font-size:14px!important;line-height:1.4!important;margin-top:13px!important;white-space:normal!important;text-wrap:pretty!important;max-width:100%!important;overflow:visible!important;}
@@ -75,7 +76,7 @@ html .app-loader{background-color:transparent!important;background-image:linear-
  #stage #phone-anchor{left:var(--motion-phone-x,50%)!important;top:var(--motion-phone-y)!important;width:var(--phone-w)!important;height:var(--phone-h)!important;transform:translate(-50%,-50%)!important;perspective:none!important;touch-action:pan-y pinch-zoom;}
  #stage #phone{transform:none!important;transition:none!important;animation:none!important;}
  #stage .scene-finale .copy{top:calc(var(--viewport-stable,100svh)*.49)!important;}
- #stage .scene-finale .art{height:var(--viewport-stable,100svh)!important;top:calc(var(--viewport-stable,100svh)*.5)!important;}
+ #stage .scene-finale .art{height:var(--viewport-stable,100svh)*.5)!important;top:calc(var(--viewport-stable,100svh)*.5)!important;}
  #stage .scene-finale .copy h2{font-size:clamp(32px,9.4vw,46px)!important;}
 }
 @media(max-width:980px) and (orientation:landscape){
@@ -94,5 +95,4 @@ html .app-loader{background-color:transparent!important;background-image:linear-
 .mobile-viewer-v26 .mv-frame,.mobile-viewer-v26:not(.is-open) .mv-frame{position:relative!important;left:auto!important;top:auto!important;width:var(--gallery-phone-w,var(--phone-w))!important;height:var(--gallery-phone-h,var(--phone-h))!important;min-width:0!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;transform:none!important;margin:var(--gallery-phone-top,84px) auto 0!important;transition:none!important;}
 .mobile-viewer-v26 .mv-top{position:fixed!important;}
 .mobile-viewer-v26 .mv-arrow{position:fixed!important;top:var(--gallery-arrow-y,50%)!important;}
-@media(max-width:400px){#stories-pagination{--story-dot-cell:24px;}}
 @media(prefers-reduced-motion:reduce){#stories-pagination button,#stories-pagination button::before,#stories-pagination .story-fill{transition:none!important;}}
