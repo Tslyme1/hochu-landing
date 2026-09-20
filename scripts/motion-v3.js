@@ -24,12 +24,12 @@
   const prepared=new WeakSet(), playPending=new WeakSet();
   let visible=true, current=0, target=0, transition=null, pending=null, queued=null, frame=0, elapsed=0, last=performance.now();
   let held=false, gesture=null, suppressClickUntil=0, lastScroll=-Infinity, resizeTimer=0, lastWidth=0, view=null;
-  const duration=420, cycle=7000, wrap=i=>(i+chapters.length)%chapters.length;
+  const duration=420, cycle=10000, wrap=i=>(i+chapters.length)%chapters.length;
   // Keep the original DOM, illustration layers and all product copy.
   stage.append(anchor); const prev=$('.phone-chevron-prev'),next=$('.phone-chevron-next');stage.append(prev,next);
   const legacy=$('#journey-nav');legacy.hidden=true;legacy.inert=true;legacy.setAttribute('aria-hidden','true');
   const labels=$$('.nav-label',legacy).map(el=>el.textContent.trim());
-  const nav=document.createElement('nav');nav.id='stories-pagination';nav.setAttribute('aria-label','Разделы сайта');
+  const nav=document.createElement('nav');nav.id='stories-pagination';nav.setAttribute('aria-label','Разделы сайта. Автопереход каждые 10 секунд');
   nav.innerHTML=chapters.map((c,i)=>`<button type="button" data-story="${i}" aria-label="${i+1}. ${labels[i]}"><i class="story-fill" aria-hidden="true"></i></button>`).join('');stage.append(nav);
   const navButtons=$$('button',nav),fills=$$('.story-fill',nav);
   const arrow=d=>`<svg aria-hidden="true" viewBox="0 0 24 24"><path d="${d<0?'M15 5 8 12l7 7':'m9 5 7 7-7 7'}"/></svg>`;
@@ -179,7 +179,7 @@
     if(!blocked())elapsed+=dt;
     if(elapsed>=cycle&&!transition&&!pending){elapsed=0;goTo(current+1);}
     const bar=transition?transition.to:pending?pending.to:current;
-    fills.forEach((f,i)=>{f.style.transform=`scaleX(${i<bar?1:i===bar?clamp(elapsed/cycle).toFixed(4):0})`;});
+    fills.forEach((f,i)=>{f.style.transform=`scaleX(${i===bar?clamp(elapsed/cycle).toFixed(4):0})`;});
     if(!document.hidden&&visible)requestTick();
   }
   function fit(){
@@ -191,22 +191,39 @@
     setVar('--viewport-stable',`${H}px`);
     const headerTop=Math.max(12,top+8),railTop=headerTop+47;
     setVar('--motion-header-top',headerTop+'px');setVar('--motion-nav-top',railTop+'px');
+    // Use the final scene as the responsive typography reference, without
+    // restyling it or hard-coding one phone's pixel value across breakpoints.
+    const reference=getComputedStyle($('.description',scenes[7].el));
+    setVar('--motion-description-size',reference.fontSize);
+    setVar('--motion-description-line-height',reference.lineHeight);
     const widthChanged=Math.abs(lastWidth-W)>2;lastWidth=W;
     if(compact){
       const font=land?clamp(W*.04,26,34):clamp(W*.082,27,37);
       setVar('--motion-heading',font+'px');
-      const textTop=railTop+39,copyH=Math.max(...scenes.slice(0,7).map(s=>s.copy.offsetHeight));
+      const railBottom=railTop+nav.offsetHeight;
+      const copies=scenes.slice(0,7),heights=copies.map(s=>s.copy.offsetHeight),copyH=Math.max(...heights);
       if(!land){
-        const pw=Math.min(390,W*.67),ph=pw/.466,pt=textTop+copyH+28;
+        // The phone keeps the same position throughout a story. Each individual
+        // copy block is centered in the space between the rail and that phone,
+        // so a one-line heading has the same top/bottom breathing room.
+        const pw=Math.min(390,W*.67),ph=pw/.466,pt=railBottom+copyH+32;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','50%');
-        setVar('--motion-copy-top',textTop+'px');setVar('--motion-scene-height',Math.max(H,pt+ph+bottom+38)+'px');
+        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',(railBottom+(pt-railBottom-heights[i])/2)+'px'));
+        setVar('--motion-copy-top',railBottom+16+'px');setVar('--motion-scene-height',Math.max(H,pt+ph+bottom+38)+'px');
         setVar('--motion-arrow-y',Math.min(pt+ph*.50,(vv?.height||H)-90)+'px');
       }else{
-        const ph=Math.max(250,Math.min(H-railTop-28,420)),pw=ph*.466,pt=railTop+40;
+        const ph=Math.max(250,Math.min(H-railTop-28,420)),pw=ph*.466,pt=railBottom+8;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','74%');
-        setVar('--motion-copy-top',railTop+50+'px');setVar('--motion-scene-height',pt+ph+bottom+24+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
+        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,pt+(ph-heights[i])/2)+'px'));
+        setVar('--motion-copy-top',railBottom+18+'px');setVar('--motion-scene-height',pt+ph+bottom+24+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
       }
-    }else{['--phone-h','--phone-w','--phone-y'].forEach(k=>root.style.removeProperty(k));setVar('--motion-scene-height',Math.max(760,H)+'px');}
+    }else{
+      ['--phone-h','--phone-w','--phone-y'].forEach(k=>root.style.removeProperty(k));
+      setVar('--motion-scene-height',Math.max(760,H)+'px');
+      const device=anchor.getBoundingClientRect(),stageTop=stage.getBoundingClientRect().top;
+      const center=device.top-stageTop+device.height/2;
+      scenes.slice(0,7).forEach(s=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(106,center-s.copy.offsetHeight/2)+'px'));
+    }
     positionMedia(getSource(current).el);if(view?.open)view.fit();
     if(widthChanged)requestAnimationFrame(()=>positionMedia(getSource(current).el));
   }
@@ -245,7 +262,19 @@
     overlay.innerHTML='<div class="mv-top"><div class="mv-title"><span class="mv-title-text"></span></div><button class="mv-close" aria-label="Закрыть"></button></div><button class="mv-arrow mv-prev" aria-label="Предыдущий экран">'+arrow(-1)+'</button><div class="mv-frame"></div><button class="mv-arrow mv-next" aria-label="Следующий экран">'+arrow(1)+'</button>';
     document.body.append(overlay);const v={open:false,index:0,live:[],el:overlay,busy:false,sequence:0};
     const holder=$('.mv-frame',overlay),title=$('.mv-title-text',overlay),close=$('.mv-close',overlay);
-    v.fit=()=>{const r=v.live[v.live.length-1];if(r)positionMedia(r.el);};
+    v.fit=()=>{
+      if(!v.open)return;
+      // Read the same untransformed device dimensions used on the main page.
+      // A tall device scrolls inside the gallery instead of being downscaled.
+      const css=getComputedStyle(phone),w=parseFloat(css.width),h=parseFloat(css.height);
+      if(!(w>0&&h>0))return;
+      const safe=getComputedStyle($('#motion-safe-probe')),safeTop=parseFloat(safe.paddingTop)||0,safeBottom=parseFloat(safe.paddingBottom)||0;
+      const vh=window.visualViewport?.height||innerHeight,top=Math.max(safeTop+76,(vh-h)/2);
+      overlay.style.setProperty('--gallery-phone-w',w+'px');overlay.style.setProperty('--gallery-phone-h',h+'px');
+      overlay.style.setProperty('--gallery-phone-top',top+'px');overlay.style.setProperty('--gallery-phone-bottom',Math.max(24,safeBottom+16)+'px');
+      overlay.style.setProperty('--gallery-arrow-y',clamp(top+h/2,82,Math.max(82,vh-62))+'px');
+      const r=v.live[v.live.length-1];if(r)positionMedia(r.el);
+    };
     function build(){
       const shell=phone.cloneNode(false);shell.removeAttribute('id');shell.removeAttribute('style');
       const screen=$('.phone-screen',phone).cloneNode(false);screen.removeAttribute('id');shell.append(screen);holder.replaceChildren(shell);
@@ -255,11 +284,11 @@
       i=(i+7)%7;if(v.busy)return;v.busy=true;const seq=++v.sequence,old=v.live[v.live.length-1],r=v.records[i];
       v.index=i;v.live=old&&old!==r?[old,r]:[r];mediaState();await prepare(r);
       if(seq!==v.sequence||!v.open){v.busy=false;return;}
-      positionMedia(r.el);title.textContent=labels[i];v.records.forEach(x=>{if(x!==old&&x!==r)showMedia(x,0,0);});
+      v.fit();positionMedia(r.el);title.textContent=labels[i];v.records.forEach(x=>{if(x!==old&&x!==r)showMedia(x,0,0);});
       const start=performance.now();function step(now){if(seq!==v.sequence||!v.open)return;const p=instant||reduced.matches?1:clamp((now-start)/320);if(old&&old!==r)showMedia(old,1,1);showMedia(r,ease(p),2);if(p<1)requestAnimationFrame(step);else{if(old&&old!==r)showMedia(old,0,0);v.live=[r];v.busy=false;mediaState();}}requestAnimationFrame(step);
     }
     function shut(){if(!v.open)return;v.open=false;v.sequence++;v.busy=false;v.live=[];overlay.classList.remove('is-open');overlay.inert=true;root.classList.remove('mv-open-v30');const i=v.index;v.records?.forEach(r=>{if(r.video){r.el.pause();players.delete(r.el);}});holder.replaceChildren();mediaState();last=performance.now();if(i!==current)goTo(i);}
-    phone.addEventListener('click',()=>{if(!mobile.matches||current===7||performance.now()<suppressClickUntil||transition||pending||v.open)return;v.open=true;v.index=current;build();overlay.inert=false;overlay.classList.add('is-open');root.classList.add('mv-open-v30');show(current,true);close.focus({preventScroll:true});});
+    phone.addEventListener('click',()=>{if(!mobile.matches||current===7||performance.now()<suppressClickUntil||transition||pending||v.open)return;v.open=true;v.index=current;build();overlay.inert=false;overlay.classList.add('is-open');root.classList.add('mv-open-v30');overlay.scrollTop=0;v.fit();show(current,true);close.focus({preventScroll:true});});
     close.addEventListener('click',shut);$('.mv-prev',overlay).addEventListener('click',()=>show(v.index-1));$('.mv-next',overlay).addEventListener('click',()=>show(v.index+1));
     let drag=null;holder.addEventListener('pointerdown',e=>drag={x:e.clientX,y:e.clientY});holder.addEventListener('pointerup',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.3)show(v.index+(dx<0?1:-1));});holder.addEventListener('pointercancel',()=>drag=null);
     overlay.addEventListener('keydown',e=>{if(e.key==='Escape')shut();if(e.key==='ArrowRight'){e.preventDefault();show(v.index+1);}if(e.key==='ArrowLeft'){e.preventDefault();show(v.index-1);}if(e.key==='Tab'){const list=$$('button',overlay),i=list.indexOf(document.activeElement);e.preventDefault();list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();}});
