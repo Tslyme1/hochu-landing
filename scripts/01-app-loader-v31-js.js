@@ -1,4 +1,4 @@
-/* Loader 3.5: breathe during long waits -> filled frame -> one spring -> fade. */
+/* Loader 3.6: paced centre reveal -> full-frame hold -> gentle spring -> slow fade. */
 (function(){
   'use strict';
   if('scrollRestoration' in history)history.scrollRestoration='manual';
@@ -15,7 +15,8 @@
   el.dataset.loaderPhase='filling';
   el.setAttribute('aria-busy','true');
   var shown=performance.now(),last=shown,fill=0,target=.06,raf=0,ready=false;
-  var phase='filling',parseWatch=0,poll=0,springTimer=0,fadeTimer=0;
+  var phase='filling',parseWatch=0,poll=0,holdTimer=0,springTimer=0,fadeTimer=0;
+  var revealTime=1600,filledHold=140;
   function bump(v){if(phase==='filling'&&v>target)target=Math.min(1,v);}
   function block(e){if(e.cancelable)e.preventDefault();}
   addEventListener('wheel',block,{passive:false});
@@ -23,7 +24,7 @@
   function clearProgress(){cancelAnimationFrame(raf);raf=0;clearInterval(parseWatch);clearInterval(poll);}
   function remove(){
     if(phase==='removed')return;
-    phase='removed';clearProgress();clearTimeout(springTimer);clearTimeout(fadeTimer);
+    phase='removed';clearProgress();clearTimeout(holdTimer);clearTimeout(springTimer);clearTimeout(fadeTimer);
     removeEventListener('wheel',block);removeEventListener('touchmove',block);
     document.removeEventListener('visibilitychange',resume);
     reduced.removeEventListener('change',motionPreference);
@@ -34,41 +35,49 @@
   function fadeEnded(e){if(e.target===el&&e.propertyName==='opacity')remove();}
   function hide(){
     if(phase==='fading'||phase==='removed')return;
-    clearProgress();clearTimeout(springTimer);
+    clearProgress();clearTimeout(holdTimer);clearTimeout(springTimer);
     phase='fading';el.dataset.loaderPhase=phase;el.setAttribute('aria-busy','false');
     el.addEventListener('transitionend',fadeEnded);
     el.classList.add('is-done');
     // A fallback covers suspended tabs or an interrupted CSS transition.
-    fadeTimer=setTimeout(remove,reduced.matches?200:420);
+    fadeTimer=setTimeout(remove,reduced.matches?200:700);
   }
   function springEnded(e){
     if(e.target===mark&&e.animationName==='hochu-loader-spring'&&phase==='spring')hide();
   }
   mark.addEventListener('animationend',springEnded);
+  function startSpring(){
+    holdTimer=0;
+    if(phase!=='filled')return;
+    if(reduced.matches){hide();return;}
+    // Continue from the breathing loop's current scale, never snap back to 1.
+    var from=getComputedStyle(mark).transform;
+    mark.style.setProperty('--loader-spring-from',from==='none'?'scale(1)':from);
+    phase='spring';el.dataset.loaderPhase=phase;el.classList.add('is-complete');
+    springTimer=setTimeout(hide,850);
+  }
   function complete(){
     if(phase!=='filling')return;
     clearProgress();fill=1;mark.style.setProperty('--fill','1');
     phase='filled';el.dataset.loaderPhase=phase;
-    // Paint the completely filled logo before its scale starts changing.
-    raf=requestAnimationFrame(function(){raf=requestAnimationFrame(function(){
+    if(reduced.matches){hide();return;}
+    // Leave a perceptible, fully painted logo before starting the final spring.
+    raf=requestAnimationFrame(function(){
       raf=0;
-      if(phase!=='filled')return;
-      if(reduced.matches){hide();return;}
-      // Continue from the breathing loop's current scale, never snap back to 1.
-      var from=getComputedStyle(mark).transform;
-      mark.style.setProperty('--loader-spring-from',from==='none'?'scale(1)':from);
-      phase='spring';el.dataset.loaderPhase=phase;el.classList.add('is-complete');
-      // Normally animationend starts the fade after the mark returns to scale(1).
-      springTimer=setTimeout(hide,650);
-    });});
+      if(phase==='filled')holdTimer=setTimeout(startSpring,filledHold);
+    });
   }
   function frame(now){
     raf=0;if(phase!=='filling')return;
     var age=now-shown,dt=Math.min(64,Math.max(0,now-last));last=now;
     if(!ready)bump(.06+.44*(1-Math.exp(-age/3000)));
-    fill+=(target-fill)*(1-Math.exp(-dt/(ready?72:180)));
+    // Readiness may arrive instantly on a cached visit. Pace the visible reveal,
+    // but never fill to completion before the original readiness checks succeed.
+    var p=reduced.matches?1:Math.min(1,age/revealTime);
+    var paced=p*p*(3-2*p),desired=Math.min(target,paced);
+    fill+=(desired-fill)*(1-Math.exp(-dt/(ready?120:220)));
     mark.style.setProperty('--fill',fill.toFixed(4));
-    if(ready&&(reduced.matches||fill>.995)&&age>(reduced.matches?160:560)){complete();return;}
+    if(ready&&(reduced.matches||fill>.995)&&age>(reduced.matches?160:revealTime)){complete();return;}
     if(!document.hidden)raf=requestAnimationFrame(frame);
   }
   function finish(){if(phase!=='filling')return;ready=true;target=1;resume();}
@@ -78,7 +87,7 @@
     if(document.hidden){cancelAnimationFrame(raf);raf=0;return;}
     if(phase==='filling'&&!raf)raf=requestAnimationFrame(frame);
     // A tab hidden between the full frame and the spring must not get stuck.
-    if(phase==='filled'&&!raf){phase='filling';complete();}
+    if(phase==='filled'&&!raf&&!holdTimer)holdTimer=setTimeout(startSpring,reduced.matches?0:filledHold);
   }
   function motionPreference(){if(reduced.matches&&(phase==='spring'||phase==='filled'))hide();}
   document.addEventListener('visibilitychange',resume);

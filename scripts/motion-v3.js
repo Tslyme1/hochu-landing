@@ -206,22 +206,26 @@
         // The phone keeps the same position throughout a story. Each individual
         // copy block is centered in the space between the rail and that phone,
         // so a one-line heading has the same top/bottom breathing room.
-        const pw=Math.min(390,W*.67),ph=pw/.466,pt=railBottom+copyH+32;
+        const pw=Math.min(414,W*.71),ph=pw/.466,pt=railBottom+copyH+46;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','50%');
         copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',(railBottom+(pt-railBottom-heights[i])/2)+'px'));
         setVar('--motion-copy-top',railBottom+16+'px');setVar('--motion-scene-height',Math.max(H+160,pt+ph+bottom+140)+'px');
         setVar('--motion-arrow-y',Math.min(pt+ph*.50,(vv?.height||H)-90)+'px');
       }else{
-        const ph=Math.max(250,Math.min(H-railTop-28,420)),pw=ph*.466,pt=railBottom+8;
+        const ph=Math.max(250,Math.min(H-railTop-28,420))*1.06,pw=ph*.466,pt=railBottom+18;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','74%');
         copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,railBottom+(Math.max(heights[i]+24,H-railBottom-104)-heights[i])/2)+'px'));
         setVar('--motion-copy-top',railBottom+18+'px');setVar('--motion-scene-height',Math.max(H+120,pt+ph+bottom+120)+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
       }
     }else{
+      // Read the original responsive size before applying a one-time 6% increase.
+      // Clearing overrides first prevents compounding on subsequent resizes.
       ['--phone-h','--phone-w','--phone-y'].forEach(k=>root.style.removeProperty(k));
-      setVar('--motion-scene-height',Math.max(760,H)+'px');
-      const device=anchor.getBoundingClientRect(),stageTop=stage.getBoundingClientRect().top;
-      const center=device.top-stageTop+device.height/2;
+      const base=anchor.getBoundingClientRect(),stageTop=stage.getBoundingClientRect().top;
+      const ph=base.height*1.06,pw=base.width*1.06,pt=base.top-stageTop+14;
+      setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--phone-y',pt+ph/2+'px');
+      setVar('--motion-scene-height',Math.max(760,H,pt+ph+100)+'px');
+      const center=pt+ph/2;
       scenes.slice(0,7).forEach(s=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(106,center-s.copy.offsetHeight/2)+'px'));
     }
     positionMedia(getSource(current).el);if(view?.open)view.fit();
@@ -306,6 +310,12 @@
     dock.className='store-dock';dock.setAttribute('aria-label','Скачать приложение Хочу');
     dock.innerHTML='<img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="52" height="52" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
     document.body.append(dock);
+    // A shallow decorative layer below the arrows and dock, not a filter on the
+    // full page. It never intercepts taps, changes scroll geometry, or touches media.
+    const softEdge=document.createElement('div');softEdge.className='page-bottom-blur';
+    softEdge.setAttribute('aria-hidden','true');
+    softEdge.innerHTML='<i class="bottom-blur-near"></i><i class="bottom-blur-far"></i>';
+    stage.append(softEdge);
     let dockFrame=0;
     function locate(){
       dockFrame=0;
@@ -313,7 +323,10 @@
       if(vv&&Math.abs(vv.scale-1)>.02)return;
       const safe=parseFloat(getComputedStyle(probe).paddingBottom)||0;
       const edge=(vv?.offsetTop||0)+(vv?.height||innerHeight);
-      const gap=Math.max(12,safe+6),height=dock.offsetHeight||84;
+      const gap=Math.max(12,safe+6)-8,height=dock.offsetHeight||70;
+      const blurHeight=clamp((vv?.height||innerHeight)*.22,128,192);
+      softEdge.style.setProperty('--bottom-blur-height',blurHeight.toFixed(2)+'px');
+      softEdge.style.setProperty('--bottom-blur-top',(edge-blurHeight).toFixed(2)+'px');
       dock.style.setProperty('--store-dock-top',Math.max(0,edge-gap-height).toFixed(2)+'px');
       dock.style.setProperty('--store-dock-bottom','auto');
     }
