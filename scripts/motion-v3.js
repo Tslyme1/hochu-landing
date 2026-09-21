@@ -189,7 +189,7 @@
     const probe=$('#motion-safe-probe'),cs=getComputedStyle(probe),top=parseFloat(cs.paddingTop)||0,bottom=parseFloat(cs.paddingBottom)||0;
     setVar('--visible-h',`${Math.round(vv?.height||H)}px`);
     setVar('--viewport-stable',`${H}px`);
-    const headerTop=Math.max(12,top+8),railTop=headerTop+47;
+    const railTop=Math.max(10,top+6),headerTop=railTop;
     setVar('--motion-header-top',headerTop+'px');setVar('--motion-nav-top',railTop+'px');
     // Use the final scene as the responsive typography reference, without
     // restyling it or hard-coding one phone's pixel value across breakpoints.
@@ -209,13 +209,13 @@
         const pw=Math.min(390,W*.67),ph=pw/.466,pt=railBottom+copyH+32;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','50%');
         copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',(railBottom+(pt-railBottom-heights[i])/2)+'px'));
-        setVar('--motion-copy-top',railBottom+16+'px');setVar('--motion-scene-height',Math.max(H,pt+ph+bottom+38)+'px');
+        setVar('--motion-copy-top',railBottom+16+'px');setVar('--motion-scene-height',Math.max(H+160,pt+ph+bottom+140)+'px');
         setVar('--motion-arrow-y',Math.min(pt+ph*.50,(vv?.height||H)-90)+'px');
       }else{
         const ph=Math.max(250,Math.min(H-railTop-28,420)),pw=ph*.466,pt=railBottom+8;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','74%');
-        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,pt+(ph-heights[i])/2)+'px'));
-        setVar('--motion-copy-top',railBottom+18+'px');setVar('--motion-scene-height',pt+ph+bottom+24+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
+        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,railBottom+(Math.max(heights[i]+24,H-railBottom-104)-heights[i])/2)+'px'));
+        setVar('--motion-copy-top',railBottom+18+'px');setVar('--motion-scene-height',Math.max(H+120,pt+ph+bottom+120)+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
       }
     }else{
       ['--phone-h','--phone-w','--phone-y'].forEach(k=>root.style.removeProperty(k));
@@ -297,6 +297,58 @@
     return v;
   }
   view=createViewer();
+  // Keep the underlying document taller than the visible browser window. Only
+  // user-initiated page scrolling is disabled. Gallery scrolling and zoom stay native.
+  function setupStoreDock(){
+    const header=$('.header',stage);
+    if(header){stage.append(legacy);header.remove();}
+    const dock=document.createElement('aside');
+    dock.className='store-dock';dock.setAttribute('aria-label','Скачать приложение Хочу');
+    dock.innerHTML='<img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="52" height="52" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
+    document.body.append(dock);
+    let dockFrame=0;
+    function locate(){
+      dockFrame=0;
+      const vv=window.visualViewport;
+      if(vv&&Math.abs(vv.scale-1)>.02)return;
+      const safe=parseFloat(getComputedStyle(probe).paddingBottom)||0;
+      const edge=(vv?.offsetTop||0)+(vv?.height||innerHeight);
+      const gap=Math.max(12,safe+6),height=dock.offsetHeight||84;
+      dock.style.setProperty('--store-dock-top',Math.max(0,edge-gap-height).toFixed(2)+'px');
+      dock.style.setProperty('--store-dock-bottom','auto');
+    }
+    function queue(){if(!dockFrame)dockFrame=requestAnimationFrame(locate);}
+    const localScroll=target=>target instanceof Element&&!!target.closest('.mobile-viewer-v26.is-open,dialog[open]');
+    const isZoomed=()=>window.visualViewport&&window.visualViewport.scale>1.02;
+    document.addEventListener('touchmove',e=>{
+      if(e.touches.length!==1||isZoomed()||localScroll(e.target))return;
+      if(e.cancelable)e.preventDefault();
+    },{passive:false});
+    document.addEventListener('wheel',e=>{
+      if(e.ctrlKey||e.metaKey||isZoomed()||localScroll(e.target))return;
+      if(e.cancelable)e.preventDefault();
+    },{passive:false});
+    document.addEventListener('keydown',e=>{
+      if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||localScroll(e.target)||isZoomed())return;
+      if(e.target instanceof Element&&e.target.closest('button,a,input,textarea,select,[contenteditable]'))return;
+      if(['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(e.key))e.preventDefault();
+    });
+    function keepOrigin(){
+      if(isZoomed())return;
+      if(window.scrollX||window.scrollY)window.scrollTo({top:0,left:0,behavior:'instant'});
+    }
+    if('scrollRestoration' in history)history.scrollRestoration='manual';
+    addEventListener('scroll',keepOrigin,{passive:true});
+    addEventListener('pageshow',()=>{keepOrigin();queue();});
+    addEventListener('resize',queue,{passive:true});
+    window.visualViewport?.addEventListener('resize',queue,{passive:true});
+    window.visualViewport?.addEventListener('scroll',queue,{passive:true});
+    if('ResizeObserver' in window)new ResizeObserver(queue).observe(dock);
+    document.fonts?.ready.then(queue);
+    keepOrigin();locate();
+  }
+  setupStoreDock();
+
   const api=window.HochuStory={version:3,goTo,chapters:chapters.map((c,i)=>({id:c.id,title:scenes[i].title})),get active(){return transition?transition.to:current;},get target(){return target;},get progress(){return current;},get step(){return stage.offsetHeight;},get isNavigating(){return !!(transition||pending);},get isSnapping(){return false;},get visibleScenes(){return transition?[transition.from,transition.to]:[current];},seek:i=>goTo(Math.round(i),'instant')};
   window.KhochuStories={version:3,next:()=>direction(1),previous:()=>direction(-1),goTo,fit,getState:()=>({shown:api.active,actual:current,target,elapsed,duration:cycle,busy:!!transition,preparing:!!pending,queued,paused:blocked()})};
   addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(fit,100);},{passive:true});
