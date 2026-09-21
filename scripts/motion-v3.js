@@ -182,6 +182,45 @@
     fills.forEach((f,i)=>{f.style.setProperty('--story-progress',i===bar?clamp(elapsed/cycle).toFixed(4):'0');});
     if(!document.hidden&&visible)requestTick();
   }
+  function layoutFinale(W,H,railBottom,safeTop,safeBottom){
+    const vv=window.visualViewport;
+    const edge=(vv?.offsetTop||0)+(vv?.height||H);
+    const start=railBottom+18, end=Math.max(start+180,edge-Math.max(14,safeBottom+8));
+    const space=end-start, final=scenes[7].el;
+    // One owner positions the headline, photo rows and props. No leftover
+    // viewport percentages or old 150/166px card coordinates can overlap them.
+    const layout=W>1100?'wide':W>H?'landscape':'portrait';
+    final.dataset.finaleLayout=layout;
+    const textHeight=scenes[7].copy.offsetHeight;
+    if(layout==='portrait'){
+      const gap=clamp(space*.034,12,22), propH=Math.min(W*.22,112);
+      const cardW=Math.min(W*.395,230);
+      const cardH=Math.max(42,Math.min(cardW*.67,(space-textHeight-propH-4*gap)/2));
+      const used=2*cardH+textHeight+propH+4*gap;
+      const rowA=start+gap/2+Math.max(0,(space-used)/2);
+      const textTop=rowA+cardH+gap;
+      const rowB=textTop+textHeight+gap, propsTop=rowB+cardH+gap*1.5;
+      setVar('--motion-finale-top',textTop+'px');
+      setVar('--finale-row-a',rowA+'px');setVar('--finale-row-b',rowB+'px');
+      setVar('--finale-card-w',cardW+'px');setVar('--finale-card-h',cardH+'px');
+      setVar('--finale-props-top',propsTop+'px');
+      setVar('--finale-map-w',(propH/.75)+'px');setVar('--finale-small-w',(propH*.64)+'px');
+      setVar('--finale-arrow-y',(rowB+cardH+gap*.70)+'px');
+      setVar('--finale-art-top','0px');setVar('--finale-art-height',edge+'px');
+    }else if(layout==='landscape'){
+      const gap=12,cardW=Math.min(W*.20,205),cardH=Math.min(130,(space-36)/2);
+      const textTop=start+Math.max(0,(space-textHeight-52)/2);
+      setVar('--motion-finale-top',textTop+'px');
+      setVar('--finale-row-a',(start+8)+'px');setVar('--finale-row-b',(end-cardH-8)+'px');
+      setVar('--finale-card-w',cardW+'px');setVar('--finale-card-h',cardH+'px');
+      setVar('--finale-props-top',(textTop+textHeight+gap)+'px');setVar('--finale-map-w','68px');
+      setVar('--finale-arrow-y',Math.min(edge-32,start+space/2)+'px');
+      setVar('--finale-art-top','0px');setVar('--finale-art-height',edge+'px');
+    }else{
+      setVar('--motion-finale-top',(start+(space-textHeight)/2)+'px');
+      setVar('--finale-art-top',start+'px');setVar('--finale-art-height',space+'px');
+    }
+  }
   function fit(){
     const vv=visualViewport;if(vv&&Math.abs(vv.scale-1)>.02)return;
     const W=root.clientWidth,H=innerHeight;
@@ -191,8 +230,8 @@
     setVar('--viewport-stable',`${H}px`);
     const dock=$('.store-dock');
     const dockH=parseFloat(dock?getComputedStyle(dock).height:'')||(W<=360?62:64);
-    const dockTop=Math.max(8,top+6)+(vv?.offsetTop||0);
-    const railTop=dockTop+dockH+8,headerTop=dockTop;
+    const dockTop=Math.max(16,top+14)+(vv?.offsetTop||0);
+    const railTop=dockTop+dockH+16,headerTop=dockTop;
     if(dock){dock.style.setProperty('--store-dock-top',dockTop+'px');dock.style.setProperty('--store-dock-bottom','auto');}
     setVar('--top-dock-bottom',(dockTop+dockH)+'px');
     setVar('--motion-content-start',(railTop+nav.offsetHeight+16)+'px');
@@ -212,7 +251,7 @@
         // The phone keeps the same position throughout a story. Each individual
         // copy block is centered in the space between the rail and that phone,
         // so a one-line heading has the same top/bottom breathing room.
-        const pw=Math.min(414,W*.71),ph=pw/.466,pt=railBottom+copyH+46;
+        const pw=Math.min(414,W*.71),ph=pw/.466,pt=railBottom+copyH+30;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','50%');
         copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',(railBottom+(pt-railBottom-heights[i])/2)+'px'));
         setVar('--motion-copy-top',railBottom+16+'px');setVar('--motion-scene-height',Math.max(H+160,pt+ph+bottom+140)+'px');
@@ -234,10 +273,10 @@
       const center=pt+ph/2;
       scenes.slice(0,7).forEach(s=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railTop+nav.offsetHeight+16,center-s.copy.offsetHeight/2)+'px'));
     }
-    const contentStart=railTop+nav.offsetHeight+16;
-    const finalHeight=scenes[7].copy.offsetHeight;
-    const availableEnd=Math.max(contentStart+finalHeight,(vv?.height||H)-Math.max(20,bottom+12));
-    setVar('--motion-finale-top',(contentStart+(availableEnd-contentStart-finalHeight)/2)+'px');
+    layoutFinale(W,H,railTop+nav.offsetHeight,top,bottom);
+    // The actual page, not an oversized fixed layer, continues below browser UI.
+    const sceneHeight=parseFloat(root.style.getPropertyValue('--motion-scene-height'))||H;
+    setVar('--motion-scene-height',Math.max(sceneHeight,H+240,(vv?.offsetTop||0)+(vv?.height||H)+240)+'px');
     positionMedia(getSource(current).el);if(view?.open)view.fit();
     if(widthChanged)requestAnimationFrame(()=>positionMedia(getSource(current).el));
   }
@@ -318,7 +357,7 @@
     if(header){stage.append(legacy);header.remove();}
     const dock=document.createElement('aside');
     dock.className='store-dock';dock.setAttribute('aria-label','Скачать приложение Хочу');
-    dock.innerHTML='<div class="store-dock-liquid" aria-hidden="true"></div><img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="48" height="48" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
+    dock.innerHTML='<div class="store-dock-material" aria-hidden="true"><i class="store-dock-liquid"></i></div><img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="48" height="48" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
     document.body.insertBefore(dock,story); // Download is first in both visual and keyboard order.
     // A shallow decorative layer below the arrows and dock, not a filter on the
     // full page. It never intercepts taps, changes scroll geometry, or touches media.
@@ -332,11 +371,11 @@
       const vv=window.visualViewport;
       if(vv&&Math.abs(vv.scale-1)>.02)return;
       const safeTop=parseFloat(getComputedStyle(probe).paddingTop)||0;
-      const top=(vv?.offsetTop||0)+Math.max(8,safeTop+6);
+      const top=(vv?.offsetTop||0)+Math.max(16,safeTop+14);
       const edge=(vv?.offsetTop||0)+(vv?.height||innerHeight);
       const blurHeight=clamp((vv?.height||innerHeight)*.22,128,192);
       softEdge.style.setProperty('--bottom-blur-height',blurHeight.toFixed(2)+'px');
-      softEdge.style.setProperty('--bottom-blur-top',(edge-blurHeight).toFixed(2)+'px');
+      softEdge.style.setProperty('--bottom-blur-top',(edge-blurHeight-stage.getBoundingClientRect().top).toFixed(2)+'px');
       dock.style.setProperty('--store-dock-top',top.toFixed(2)+'px');
       dock.style.setProperty('--store-dock-bottom','auto');
     }

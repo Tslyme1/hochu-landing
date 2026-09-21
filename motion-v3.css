@@ -109,10 +109,14 @@ html body{position:relative!important;inset:auto!important;width:100%!important;
 #stories-pagination{top:var(--motion-nav-top,12px)!important;}
 html:root.mv-open-v30{overflow:hidden!important;}
 /* Only the banner is fixed, with breathing room from Safari's own controls. */
-.store-dock{position:fixed;left:50%;top:var(--store-dock-top,max(8px,calc(env(safe-area-inset-top,0px) + 6px)));bottom:auto;transform:translateX(-50%);width:min(348px,calc(100% - 42px));height:64px;min-height:64px;display:grid;grid-template-columns:44px minmax(0,1fr) 92px;align-items:center;gap:10px;padding:10px 12px;border-radius:21px;color:var(--dock-fg,#fff);background:none;isolation:isolate;z-index:90;box-shadow:0 10px 28px rgba(10,16,24,.18),0 1px 2px rgba(10,16,24,.14);-webkit-tap-highlight-color:transparent;overflow:hidden;}
-.store-dock::before{content:"";position:absolute;inset:0;z-index:-3;border-radius:inherit;background:linear-gradient(180deg,var(--dock-bg-top,rgba(255,255,255,.22)),var(--dock-bg-bottom,rgba(255,255,255,.12)));-webkit-backdrop-filter:blur(30px) saturate(1.7);backdrop-filter:blur(30px) saturate(1.7);border:1px solid var(--dock-stroke,rgba(255,255,255,.28));box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(255,255,255,.06);pointer-events:none;}
-.store-dock::after{content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(255,255,255,0) 26%,rgba(255,255,255,0) 74%,rgba(255,255,255,.07));mix-blend-mode:screen;}
-.store-dock-liquid{position:absolute;inset:-20% -10%;z-index:-1;pointer-events:none;border-radius:inherit;background:radial-gradient(40% 70% at 16% 22%,rgba(255,255,255,.23),transparent 60%),radial-gradient(48% 82% at 84% 85%,var(--dock-liquid-a,rgba(121,212,255,.15)),transparent 58%),radial-gradient(36% 62% at 56% 16%,var(--dock-liquid-b,rgba(255,255,255,.14)),transparent 55%);filter:blur(18px) saturate(1.15);opacity:.98;transform:translate3d(0,0,0);}
+.store-dock{position:fixed;left:50%;top:var(--store-dock-top,max(16px,calc(env(safe-area-inset-top,0px) + 14px)));bottom:auto;transform:translateX(-50%);width:min(348px,calc(100% - 42px));height:64px;min-height:64px;display:grid;grid-template-columns:44px minmax(0,1fr) 92px;align-items:center;gap:10px;padding:10px 12px;border-radius:21px;color:var(--dock-fg,#fff);background:none;isolation:isolate;z-index:90;box-shadow:0 10px 28px rgba(10,16,24,.18),0 1px 2px rgba(10,16,24,.14);-webkit-tap-highlight-color:transparent;overflow:visible;}
+/* The outer card carries the shadow. Exactly one inner rounded mask owns
+   all glass paint; no filter can leak square corners beyond that contour. */
+.store-dock::before,.store-dock::after{content:none;display:none;}
+.store-dock-material{position:absolute;inset:0;z-index:0;border-radius:inherit;overflow:hidden;clip-path:inset(0 round 21px);-webkit-clip-path:inset(0 round 21px);pointer-events:none;background:linear-gradient(180deg,var(--dock-bg-top,rgba(255,255,255,.70)),var(--dock-bg-bottom,rgba(237,242,249,.58)));-webkit-backdrop-filter:blur(24px) saturate(1.65);backdrop-filter:blur(24px) saturate(1.65);box-shadow:inset 0 1px 0 var(--dock-stroke,rgba(255,255,255,.68)),inset 0 -1px 0 rgba(255,255,255,.12);}
+.store-dock-material::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid var(--dock-stroke,rgba(255,255,255,.68));pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 27%,transparent 76%,rgba(255,255,255,.06));}
+.store-dock-liquid{position:absolute;inset:0;display:block;z-index:0;border-radius:inherit;pointer-events:none;background:radial-gradient(60% 140% at 10% 0%,rgba(255,255,255,.17),transparent 70%),radial-gradient(60% 170% at 90% 100%,var(--dock-liquid-a,rgba(77,188,255,.18)),transparent 70%);}
+.store-dock>.store-dock-icon,.store-dock>.store-dock-copy,.store-dock>.store-dock-action{position:relative;z-index:1;}
 .store-dock-icon{width:44px;height:44px;max-width:none;object-fit:cover;border-radius:12px;box-shadow:0 1px 5px rgba(0,0,0,.12);}
 .store-dock-copy{min-width:0;text-align:left;}
 .store-dock-title{display:block;font-size:16px;line-height:19px;font-weight:600;letter-spacing:-.22px;}
@@ -127,9 +131,9 @@ html:root.mv-open-v30{overflow:hidden!important;}
 html.mv-open-v30 .store-dock{display:none;}
 @media(max-width:360px){.store-dock{width:min(334px,calc(100% - 34px));grid-template-columns:42px minmax(0,1fr) 88px;gap:8px;padding:9px 10px;height:62px;min-height:62px;}.store-dock-icon{width:42px;height:42px;border-radius:11px;}.store-dock-download{width:88px;height:30px;}.store-dock-subtitle{font-size:10.5px;}}
 @media(max-width:980px) and (orientation:landscape){.store-dock{left:50%;width:min(348px,calc(100% - 42px));grid-template-columns:42px minmax(0,1fr) 90px;gap:8px;height:62px;padding:9px 10px;}.store-dock-icon{width:42px;height:42px;border-radius:11px;}.store-dock-download{width:88px;height:30px;}}
-/* Decorative art is clipped at the full scene bounds, not at the visual viewport.
-   This prevents offscreen artwork from widening Safari's layout viewport. */
-#story,#stage{overflow:clip!important;}
+/* Only horizontal overflow is clipped. The video and lower blur can paint
+   through the document extension; neither has a viewport-height ancestor clip. */
+#story,#stage{overflow-x:clip!important;overflow-y:visible!important;}
 html body{overflow-x:clip!important;overflow-y:visible!important;}
 
 /* Loader 3.4: a quiet glass surface with an unclipped outer shadow.
@@ -161,7 +165,7 @@ html body{overflow-x:clip!important;overflow-y:visible!important;}
 
 /* 3.6: a soft lower edge. The extended canvas remains visible under browser UI.
    Only this narrow region uses backdrop blur; the TestFlight dock and arrows stay crisp. */
-.page-bottom-blur{position:fixed;left:0;right:0;top:var(--bottom-blur-top,calc(100dvh - 160px));height:calc(var(--bottom-blur-height,160px) + 160px);pointer-events:none;z-index:30;background:none;}
+.page-bottom-blur{position:absolute;left:0;right:0;top:var(--bottom-blur-top,calc(100dvh - 160px));height:calc(var(--bottom-blur-height,160px) + 160px);pointer-events:none;z-index:30;background:none;}
 .page-bottom-blur>i{position:absolute;inset:0;display:block;pointer-events:none;background:none;}
 .page-bottom-blur .bottom-blur-near{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--bottom-blur-height,160px));mask-image:linear-gradient(to bottom,transparent 0,#000 var(--bottom-blur-height,160px));}
 .page-bottom-blur .bottom-blur-far{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);-webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--bottom-blur-height,160px)*.28),#000 var(--bottom-blur-height,160px));mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--bottom-blur-height,160px)*.28),#000 var(--bottom-blur-height,160px));}
@@ -175,12 +179,43 @@ html.mv-open-v30 .page-bottom-blur{display:none;}
 @media (prefers-color-scheme: light){
   :root{--dock-solid:#edf2f7;--dock-fg:#172c40;--dock-bg-top:rgba(255,255,255,.70);--dock-bg-bottom:rgba(237,242,249,.58);--dock-stroke:rgba(255,255,255,.68);--dock-muted:rgba(23,44,64,.76);--dock-note:rgba(23,44,64,.70);--dock-liquid-a:rgba(77,188,255,.18);--dock-liquid-b:rgba(255,255,255,.18);--dock-button-top:#17a4ff;--dock-button-bottom:#0e90f2;}
 }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.store-dock::before{background:var(--dock-solid,#edf2f7);} .store-dock-liquid{display:none;}}
-@media(prefers-reduced-transparency:reduce){.store-dock::before{background:var(--dock-solid,#edf2f7);backdrop-filter:none;-webkit-backdrop-filter:none;} .store-dock-liquid{display:none;}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.store-dock-material{background:var(--dock-solid,#edf2f7);} .store-dock-liquid{display:none;}}
+@media(prefers-reduced-transparency:reduce){.store-dock-material{background:var(--dock-solid,#edf2f7);backdrop-filter:none;-webkit-backdrop-filter:none;} .store-dock-liquid{display:none;}}
 
 /* 3.7: fixed download card -> compact story rail -> copy -> product.
    The full-height scene is preserved. No viewport crop is added to the phone. */
-#stage .scene-finale .copy{top:var(--motion-finale-top,40%)!important;transform:none!important;}
+#stage .scene-finale .copy{left:0!important;right:0!important;margin-inline:auto!important;top:var(--motion-finale-top,40%)!important;transform:none!important;}
 @media(min-width:981px){
  #stage .scene:not(.scene-finale) .art{top:calc((var(--motion-content-start,140px) + var(--viewport-stable,100vh))/2)!important;}
 }
+
+/* 3.8: finale geometry is measured as a composition below the top controls. */
+#stage .scene-finale .art{left:0!important;right:0!important;margin-inline:auto!important;top:var(--finale-art-top,0px)!important;height:var(--finale-art-height,100svh)!important;transform:none!important;}
+#stage .scene-finale .art-enter{transform:none!important;}
+#stage[data-scene="7"] #phone-anchor,#stage[data-scene="7"] #phone{pointer-events:none!important;}
+#stage[data-scene="7"] .phone-chevron{top:var(--finale-arrow-y,var(--motion-arrow-y))!important;}
+#stage .scene-finale[data-finale-layout="portrait"] .art,
+#stage .scene-finale[data-finale-layout="landscape"] .art{width:100%!important;}
+#stage .scene-finale[data-finale-layout="portrait"] .finale-card,
+#stage .scene-finale[data-finale-layout="landscape"] .finale-card{width:var(--finale-card-w);height:var(--finale-card-h);bottom:auto;}
+#stage .scene-finale[data-finale-layout="portrait"] .event-concert,
+#stage .scene-finale[data-finale-layout="portrait"] .event-cafe,
+#stage .scene-finale[data-finale-layout="landscape"] .event-concert,
+#stage .scene-finale[data-finale-layout="landscape"] .event-cafe{top:var(--finale-row-a,7%);}
+#stage .scene-finale[data-finale-layout="portrait"] .event-friends,
+#stage .scene-finale[data-finale-layout="portrait"] .event-sunset,
+#stage .scene-finale[data-finale-layout="landscape"] .event-friends,
+#stage .scene-finale[data-finale-layout="landscape"] .event-sunset{top:var(--finale-row-b);bottom:auto;}
+#stage .scene-finale[data-finale-layout="portrait"] .asset-map{width:var(--finale-map-w);top:var(--finale-props-top);bottom:auto;}
+#stage .scene-finale[data-finale-layout="portrait"] .asset-heart,
+#stage .scene-finale[data-finale-layout="portrait"] .asset-calendar{width:var(--finale-small-w);top:calc(var(--finale-props-top) + 18px);bottom:auto;}
+#stage .scene-finale[data-finale-layout="landscape"] .copy{width:38%!important;}
+#stage .scene-finale[data-finale-layout="landscape"] .copy h2{font-size:clamp(27px,4.1vw,42px)!important;}
+#stage .scene-finale[data-finale-layout="landscape"] .description{max-width:100%!important;}
+#stage .scene-finale[data-finale-layout="landscape"] .event-concert,
+#stage .scene-finale[data-finale-layout="landscape"] .event-friends{left:5%;}
+#stage .scene-finale[data-finale-layout="landscape"] .event-cafe,
+#stage .scene-finale[data-finale-layout="landscape"] .event-sunset{right:5%;}
+#stage .scene-finale[data-finale-layout="landscape"] .asset-map{width:var(--finale-map-w);top:var(--finale-props-top);bottom:auto;}
+#stage .scene-finale[data-finale-layout="landscape"] .asset-heart,
+#stage .scene-finale[data-finale-layout="landscape"] .asset-calendar{display:none!important;}
