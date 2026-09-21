@@ -250,7 +250,9 @@
     if(e.key==='ArrowRight'){e.preventDefault();direction(1);}if(e.key==='ArrowLeft'){e.preventDefault();direction(-1);}
   });
   const dialog=$('#download-dialog');
-  $$('[data-download]').forEach(b=>b.addEventListener('click',()=>{const url=window.HOCHU_CONFIG?.appStoreUrl||'';if(/^https:\/\/apps\.apple\.com\//.test(url))window.open(url,'_blank','noopener,noreferrer');else dialog.showModal();}));
+  // Default download destination supplied by the product owner; preserve any explicit future App Store configuration.
+  window.HOCHU_CONFIG={...window.HOCHU_CONFIG,appStoreUrl:window.HOCHU_CONFIG?.appStoreUrl||'https://testflight.apple.com/join/e2QTBjKN'};
+  $$('[data-download]').forEach(b=>b.addEventListener('click',()=>{const url=window.HOCHU_CONFIG?.appStoreUrl||'';if(/^https:\/\/(?:apps\.apple\.com\/|testflight\.apple\.com\/join\/)/.test(url))window.open(url,'_blank','noopener,noreferrer');else dialog.showModal();}));
   $$('.dialog-close,.dialog-ok',dialog).forEach(b=>b.addEventListener('click',()=>dialog.close()));
   dialog.addEventListener('close',()=>{last=performance.now();mediaState();});
   new MutationObserver(()=>mediaState()).observe(dialog,{attributes:true,attributeFilter:['open']});
