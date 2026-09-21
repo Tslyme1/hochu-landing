@@ -95,7 +95,23 @@
         if(extra?.video)wanted.add(extra.el);
       }
     }
-    players.forEach(el=>{if(wanted.has(el))play(el);else if(!el.paused)el.pause();});
+    players.forEach(el=>{if(wanted.has(el)){play(el);watch(el);}else{stopWatch(el);if(!el.paused)el.pause();}});
+  }
+  // A chapter whose media never reports a decoded frame — a request that stalled,
+  // a cached range that no longer matches the file — would sit on its poster for
+  // good. Give it one reload before accepting that.
+  const watchdogs=new WeakMap(), reloaded=new WeakSet();
+  function stopWatch(el){const t=watchdogs.get(el);if(t){clearTimeout(t);watchdogs.delete(el);}}
+  function watch(el){
+    if(watchdogs.has(el)||reloaded.has(el))return;
+    watchdogs.set(el,setTimeout(()=>{
+      watchdogs.delete(el);
+      if(!wanted.has(el)||reloaded.has(el))return;
+      if(el.readyState>=2&&!el.paused)return;
+      reloaded.add(el);
+      try{el.load();}catch{}
+      play(el);
+    },2500));
   }
   async function prepare(r){
     if(!r)return;
@@ -298,6 +314,16 @@
   });
   addEventListener('pointerup',()=>held=false,{passive:true});addEventListener('pointercancel',()=>{held=false;gesture=null;},{passive:true});
   addEventListener('scroll',()=>{lastScroll=performance.now();},{passive:true});
+  // Safari refuses muted autoplay until the page has been touched, and Low Power
+  // Mode refuses it outright, so the opening chapter — the only one asked to play
+  // before any interaction — stayed frozen on its poster. Ask again from inside a
+  // gesture, where the refusal does not apply, and stop once something is running.
+  const resumeMedia=()=>{
+    if([...wanted].some(el=>el.paused))mediaState();
+    if([...players].every(el=>el.paused))return;
+    ['pointerdown','touchend','click','keydown'].forEach(t=>removeEventListener(t,resumeMedia,true));
+  };
+  ['pointerdown','touchend','click','keydown'].forEach(t=>addEventListener(t,resumeMedia,{passive:true,capture:true}));
   addEventListener('keydown',e=>{
     if(e.defaultPrevented||e.altKey||e.metaKey||e.ctrlKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||$('#download-dialog').open||view?.open)return;
     if(e.key==='ArrowRight'){e.preventDefault();direction(1);}if(e.key==='ArrowLeft'){e.preventDefault();direction(-1);}
