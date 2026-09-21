@@ -96,3 +96,20 @@ html .app-loader{background-color:transparent!important;background-image:linear-
 .mobile-viewer-v26 .mv-top{position:fixed!important;}
 .mobile-viewer-v26 .mv-arrow{position:fixed!important;top:var(--gallery-arrow-y,50%)!important;}
 @media(prefers-reduced-motion:reduce){#stories-pagination button,#stories-pagination button::before,#stories-pagination .story-fill{transition:none!important;}}
+
+/* 3.2: lock only the document. Chapters still use arrows, story dots and swipes.
+   The gallery/dialog may scroll internally; browser pinch zoom stays available. */
+:root{--locked-viewport-height:100vh;}
+@supports(height:100dvh){:root{--locked-viewport-height:100dvh;}}
+html:root{height:100%!important;overflow:hidden!important;overscroll-behavior:none;}
+html body{position:fixed!important;inset:0!important;width:100%!important;height:var(--locked-viewport-height)!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none;}
+#story{height:100%!important;min-height:0!important;overflow:hidden!important;overflow:clip!important;}
+#stage{height:100%!important;min-height:0!important;overflow:hidden!important;overflow:clip!important;touch-action:pinch-zoom!important;}
+#stage #phone-anchor{touch-action:pinch-zoom!important;}
+@media(max-width:980px){
+ /* Keep the existing text zone. Fit the complete device in the remaining space,
+    instead of hiding its bottom or leaving an inaccessible oversized document. */
+ #stage{--locked-phone-top:calc(var(--motion-phone-y) - var(--phone-h)/2);--locked-phone-h:min(var(--phone-h),max(80px,calc(var(--locked-viewport-height) - var(--locked-phone-top) - max(12px,env(safe-area-inset-bottom,0px)))));--locked-phone-y:calc(var(--locked-phone-top) + var(--locked-phone-h)/2);}
+ #stage #phone-anchor{top:var(--locked-phone-y)!important;width:calc(var(--locked-phone-h)*.466)!important;height:var(--locked-phone-h)!important;}
+ #stage .phone-chevron{top:var(--locked-phone-y)!important;}
+}
