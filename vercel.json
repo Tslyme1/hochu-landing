@@ -1,8 +1,49 @@
 {
   "headers": [
-    {"source":"/","headers":[{"key":"Cache-Control","value":"public, max-age=0, must-revalidate"}]},
-    {"source":"/index.html","headers":[{"key":"Cache-Control","value":"public, max-age=0, must-revalidate"}]},
-    {"source":"/motion-v3.css","headers":[{"key":"Cache-Control","value":"public, max-age=0, must-revalidate"}]},
-    {"source":"/scripts/motion-v3.js","headers":[{"key":"Cache-Control","value":"public, max-age=0, must-revalidate"}]}
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/motion-v3.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/scripts/motion-v3.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/scripts/01-app-loader-v31-js.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
   ]
 }

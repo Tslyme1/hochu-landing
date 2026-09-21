@@ -1,5 +1,5 @@
-/* Хочу v3 — one transition owner; native document scrolling on phones.
-   No scroll-to-chapter jumps, blur filters or animated video masks. */
+/* Хочу v3.7 — top download dock; one transition owner; extended page canvas.
+   Vertical input is locked; the lower decorative blur never filters media nodes. */
 (() => {
   'use strict';
   const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
@@ -47,7 +47,7 @@
     const css=getComputedStyle(frame),nw=node.videoWidth||node.naturalWidth||Number(node.dataset.frameWidth)||Number(node.getAttribute('width'))||592;
     const nh=node.videoHeight||node.naturalHeight||Number(node.dataset.frameHeight)||Number(node.getAttribute('height'))||1280;
     const W=frame.clientWidth,H=frame.clientHeight,L=parseFloat(css.paddingLeft)||6,R=parseFloat(css.paddingRight)||6,T=parseFloat(css.paddingTop)||6,B=parseFloat(css.paddingBottom)||6;
-    const scale=Math.min((W-L-R)/nw,(H-T-B)/nh);
+    const scale=Math.min((W-L-R)/nw,(H-T-B-nh*0)/nh);
     for(const [k,v] of Object.entries({width:nw*scale,height:nh*scale,left:L+(W-L-R-nw*scale)/2,top:T+(H-T-B-nh*scale)/2}))frame.style.setProperty('--media-screen-'+k,v.toFixed(3)+'px');
   }
   function record(el){
@@ -189,7 +189,13 @@
     const probe=$('#motion-safe-probe'),cs=getComputedStyle(probe),top=parseFloat(cs.paddingTop)||0,bottom=parseFloat(cs.paddingBottom)||0;
     setVar('--visible-h',`${Math.round(vv?.height||H)}px`);
     setVar('--viewport-stable',`${H}px`);
-    const railTop=Math.max(10,top+6),headerTop=railTop;
+    const dock=$('.store-dock');
+    const dockH=parseFloat(dock?getComputedStyle(dock).height:'')||(W<=360?62:64);
+    const dockTop=Math.max(8,top+6)+(vv?.offsetTop||0);
+    const railTop=dockTop+dockH+8,headerTop=dockTop;
+    if(dock){dock.style.setProperty('--store-dock-top',dockTop+'px');dock.style.setProperty('--store-dock-bottom','auto');}
+    setVar('--top-dock-bottom',(dockTop+dockH)+'px');
+    setVar('--motion-content-start',(railTop+nav.offsetHeight+16)+'px');
     setVar('--motion-header-top',headerTop+'px');setVar('--motion-nav-top',railTop+'px');
     // Use the final scene as the responsive typography reference, without
     // restyling it or hard-coding one phone's pixel value across breakpoints.
@@ -214,7 +220,7 @@
       }else{
         const ph=Math.max(250,Math.min(H-railTop-28,420))*1.06,pw=ph*.466,pt=railBottom+18;
         setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--motion-phone-y',pt+ph/2+'px');setVar('--motion-phone-x','74%');
-        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,railBottom+(Math.max(heights[i]+24,H-railBottom-104)-heights[i])/2)+'px'));
+        copies.forEach((s,i)=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railBottom+12,railBottom+(Math.max(heights[i]+24,H-railBottom-32)-heights[i])/2)+'px'));
         setVar('--motion-copy-top',railBottom+18+'px');setVar('--motion-scene-height',Math.max(H+120,pt+ph+bottom+120)+'px');setVar('--motion-arrow-y',pt+ph/2+'px');
       }
     }else{
@@ -222,12 +228,16 @@
       // Clearing overrides first prevents compounding on subsequent resizes.
       ['--phone-h','--phone-w','--phone-y'].forEach(k=>root.style.removeProperty(k));
       const base=anchor.getBoundingClientRect(),stageTop=stage.getBoundingClientRect().top;
-      const ph=base.height*1.06,pw=base.width*1.06,pt=base.top-stageTop+14;
+      const ph=base.height*1.06,pw=base.width*1.06,pt=Math.max(base.top-stageTop+14,railTop+nav.offsetHeight+18);
       setVar('--phone-h',ph+'px');setVar('--phone-w',pw+'px');setVar('--phone-y',pt+ph/2+'px');
       setVar('--motion-scene-height',Math.max(760,H,pt+ph+100)+'px');
       const center=pt+ph/2;
-      scenes.slice(0,7).forEach(s=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(106,center-s.copy.offsetHeight/2)+'px'));
+      scenes.slice(0,7).forEach(s=>s.copy.style.setProperty('--motion-copy-top-local',Math.max(railTop+nav.offsetHeight+16,center-s.copy.offsetHeight/2)+'px'));
     }
+    const contentStart=railTop+nav.offsetHeight+16;
+    const finalHeight=scenes[7].copy.offsetHeight;
+    const availableEnd=Math.max(contentStart+finalHeight,(vv?.height||H)-Math.max(20,bottom+12));
+    setVar('--motion-finale-top',(contentStart+(availableEnd-contentStart-finalHeight)/2)+'px');
     positionMedia(getSource(current).el);if(view?.open)view.fit();
     if(widthChanged)requestAnimationFrame(()=>positionMedia(getSource(current).el));
   }
@@ -308,8 +318,8 @@
     if(header){stage.append(legacy);header.remove();}
     const dock=document.createElement('aside');
     dock.className='store-dock';dock.setAttribute('aria-label','Скачать приложение Хочу');
-    dock.innerHTML='<img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="52" height="52" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
-    document.body.append(dock);
+    dock.innerHTML='<div class="store-dock-liquid" aria-hidden="true"></div><img class="store-dock-icon" src="assets/images/7cf432b599e2f63310.webp" width="48" height="48" alt=""/><div class="store-dock-copy"><strong class="store-dock-title">Хочу</strong><span class="store-dock-subtitle">Жизнь вашего города</span></div><div class="store-dock-action"><a class="store-dock-download" href="https://testflight.apple.com/join/e2QTBjKN" target="_blank" rel="noopener noreferrer" aria-label="Загрузить Хочу через TestFlight">Загрузить</a><span class="store-dock-note">В TestFlight</span></div>';
+    document.body.insertBefore(dock,story); // Download is first in both visual and keyboard order.
     // A shallow decorative layer below the arrows and dock, not a filter on the
     // full page. It never intercepts taps, changes scroll geometry, or touches media.
     const softEdge=document.createElement('div');softEdge.className='page-bottom-blur';
@@ -321,13 +331,13 @@
       dockFrame=0;
       const vv=window.visualViewport;
       if(vv&&Math.abs(vv.scale-1)>.02)return;
-      const safe=parseFloat(getComputedStyle(probe).paddingBottom)||0;
+      const safeTop=parseFloat(getComputedStyle(probe).paddingTop)||0;
+      const top=(vv?.offsetTop||0)+Math.max(8,safeTop+6);
       const edge=(vv?.offsetTop||0)+(vv?.height||innerHeight);
-      const gap=Math.max(12,safe+6)-8,height=dock.offsetHeight||70;
       const blurHeight=clamp((vv?.height||innerHeight)*.22,128,192);
       softEdge.style.setProperty('--bottom-blur-height',blurHeight.toFixed(2)+'px');
       softEdge.style.setProperty('--bottom-blur-top',(edge-blurHeight).toFixed(2)+'px');
-      dock.style.setProperty('--store-dock-top',Math.max(0,edge-gap-height).toFixed(2)+'px');
+      dock.style.setProperty('--store-dock-top',top.toFixed(2)+'px');
       dock.style.setProperty('--store-dock-bottom','auto');
     }
     function queue(){if(!dockFrame)dockFrame=requestAnimationFrame(locate);}
@@ -356,7 +366,9 @@
     addEventListener('resize',queue,{passive:true});
     window.visualViewport?.addEventListener('resize',queue,{passive:true});
     window.visualViewport?.addEventListener('scroll',queue,{passive:true});
-    if('ResizeObserver' in window)new ResizeObserver(queue).observe(dock);
+    if('ResizeObserver' in window)new ResizeObserver(()=>{
+      queue();clearTimeout(resizeTimer);resizeTimer=setTimeout(fit,40);
+    }).observe(dock);
     document.fonts?.ready.then(queue);
     keepOrigin();locate();
   }
