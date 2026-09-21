@@ -1,4 +1,4 @@
-/* Loader 3.4: centre fill -> one small spring -> fade. No caption or moving stripe. */
+/* Loader 3.5: breathe during long waits -> filled frame -> one spring -> fade. */
 (function(){
   'use strict';
   if('scrollRestoration' in history)history.scrollRestoration='manual';
@@ -54,6 +54,9 @@
       raf=0;
       if(phase!=='filled')return;
       if(reduced.matches){hide();return;}
+      // Continue from the breathing loop's current scale, never snap back to 1.
+      var from=getComputedStyle(mark).transform;
+      mark.style.setProperty('--loader-spring-from',from==='none'?'scale(1)':from);
       phase='spring';el.dataset.loaderPhase=phase;el.classList.add('is-complete');
       // Normally animationend starts the fade after the mark returns to scale(1).
       springTimer=setTimeout(hide,650);
@@ -71,6 +74,7 @@
   function finish(){if(phase!=='filling')return;ready=true;target=1;resume();}
   function resume(){
     last=performance.now();
+    el.classList.toggle('is-suspended',document.hidden);
     if(document.hidden){cancelAnimationFrame(raf);raf=0;return;}
     if(phase==='filling'&&!raf)raf=requestAnimationFrame(frame);
     // A tab hidden between the full frame and the spring must not get stuck.
